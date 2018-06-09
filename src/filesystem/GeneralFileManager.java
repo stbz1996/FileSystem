@@ -4,18 +4,13 @@ public class GeneralFileManager
 {    
     private FileManager fileManager;
 
-    public GeneralFileManager() 
+    public GeneralFileManager(FileManager fileManager) 
     {
+        this.fileManager = fileManager;
     }
 
     
-    public Boolean create_fileManager()
-    {
-        return true;
-    }
-    
-    
-    public void set_manager(FileManager new_fileManager) 
+    public void set_filemanager(FileManager new_fileManager) 
     {
         this.fileManager = new_fileManager;
     }
