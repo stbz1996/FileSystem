@@ -1,32 +1,28 @@
-
 package filesystem;
 
-/*
- * Ruth Ulloa B
- */
-public class GeneralFileManager {
-    
-    private FileManager manager;
+public class GeneralFileManager 
+{    
+    private FileManager fileManager;
 
     public GeneralFileManager() 
     {
     }
 
-    public Boolean create_manager()
+    
+    public Boolean create_fileManager()
     {
         return true;
     }
     
-    public FileManager get_manager() {
-        return manager;
-    }
-
-    public void set_manager(FileManager manager) {
-        this.manager = manager;
+    
+    public void set_manager(FileManager new_fileManager) 
+    {
+        this.fileManager = new_fileManager;
     }
     
     
-    
-    
-    
+    public FileManager get_fileManager() 
+    {
+        return fileManager;
+    }    
 }

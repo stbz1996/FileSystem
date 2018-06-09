@@ -1,12 +1,8 @@
 package filesystem;
-
 import java.util.ArrayList;
 
-/*
- * Ruth Ulloa B
- */
-public class Directory {
-    
+public class Directory 
+{    
     private String directory_name;
     private File current_file;
     private ArrayList<Directory> directories;
@@ -18,65 +14,77 @@ public class Directory {
         this.directories = new ArrayList<Directory>();
         this.files = new ArrayList<File>();
     }
+
     
-    public boolean create_file(String content, String extension, String name)
+    public void create_file(String content, String extension, String name)
     {
-        return true;
+        
     }
     
-    public boolean create_directory(String name)
+    
+    public void create_directory(String name)
     {
-        return true;
+        
     }
+    
     
     public String display_files_and_directories()
     {
         return null;
     }
     
-    public Boolean move_file(File file, Directory new_directory)
+    
+    public void move_file(File file, Directory new_directory)
     {
-        return true;
+     
     }
     
-    public Boolean change_file_content(String new_content)
+    
+    public void change_file_content(String new_content)
     {
-        return true;
+        
     }
     
-    public Boolean remove_file_or_directory()
+    
+    public void remove_file()
     {
-        return true;
+        
     }
+    
+    
+    public void remove_directory()
+    {
+        
+    }
+    
     
     public String search_file(String name)
     {
         return null;
     }
     
-    public String get_directory_name() 
-    {
-        return directory_name;
-    }
-
-    public void set_directory_name(String directory_name) 
+    
+    public void setDirectory_name(String directory_name) 
     {
         this.directory_name = directory_name;
     }
 
-    public File get_current_file() 
-    {
-        return current_file;
-    }
-
-    public void set_current_file(File current_file) 
+    
+    public void setCurrent_file(File current_file) 
     {
         this.current_file = current_file;
     }
 
+
+    public String getDirectory_name() 
+    {
+        return directory_name;
+    }
+
     
-    
-    
-    
-    
+    public File getCurrent_file() 
+    {
+        return current_file;
+    }
+
 }
