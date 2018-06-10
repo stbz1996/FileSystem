@@ -1,23 +1,46 @@
 package filesystem;
 
+import java.util.ArrayList;
+
 public class GeneralFileManager 
 {    
-    private FileManager fileManager;
+    private ArrayList<FileManager> file_managers; 
+    private FileManager current_filemanager;
 
-    public GeneralFileManager(FileManager fileManager) 
-    {
-        this.fileManager = fileManager;
+    public GeneralFileManager() {
+    
     }
 
-    
-    public void set_filemanager(FileManager new_fileManager) 
-    {
-        this.fileManager = new_fileManager;
+    public void addFileSystem(String directory_name, int num_sectors, int sector_size){
+        boolean exist = false;
+        for(FileManager root : file_managers){
+            if(root.getInitial_directory().getDirectory_name() == directory_name){
+                exist = true;
+            }
+        }
+        if(exist){
+            System.out.println("The virtual disc joined already exist");
+        }else{
+            current_filemanager = new FileManager(directory_name, num_sectors, sector_size);
+            file_managers.add(current_filemanager);
+            System.out.println("The new virtual disc was created successfully \n");
+            System.out.println(directory_name+":\\");
+        }
     }
     
     
-    public FileManager get_fileManager() 
+    public void set_current_filemanager(String fileManager) 
     {
-        return fileManager;
+        for(FileManager root : file_managers){
+            if(root.getInitial_directory().getDirectory_name() == fileManager){
+                current_filemanager = root;
+            }
+        }
+    }
+    
+    
+    public FileManager get_current_fileManager() 
+    {
+        return current_filemanager;
     }    
 }

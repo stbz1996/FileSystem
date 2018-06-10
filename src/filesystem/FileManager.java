@@ -8,9 +8,9 @@ public class FileManager
     private int sector_size;
 
 
-    public FileManager(Directory initial_directory, int num_sectors, int sector_size) 
+    public FileManager(String initial_directory, int num_sectors, int sector_size) 
     {
-        this.initial_directory = initial_directory;
+        this.initial_directory = new Directory(initial_directory);
         this.current_directory = this.initial_directory;
         this.num_sectors = num_sectors;
         this.sector_size = sector_size;
