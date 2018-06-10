@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class GeneralFileManager 
 {    
-    private ArrayList<FileManager> file_managers; 
+    private ArrayList<FileManager> file_managers = new ArrayList<>(); 
     private FileManager current_filemanager;
 
     public GeneralFileManager() {
     
     }
 
-    public void addFileSystem(String directory_name, int num_sectors, int sector_size){
+    public void addFileSystem(int num_sectors, int sector_size, String directory_name){
         boolean exist = false;
         for(FileManager root : file_managers){
             if(root.getInitial_directory().getDirectory_name() == directory_name){
