@@ -1,4 +1,5 @@
 package filesystem;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,8 +9,8 @@ public class File
     private String name;
     private String extension;
     private ArrayList<Integer> sectors;
-    private Date creation_date;
-    private Date modification_date;
+    private String creation_date;
+    private String modification_date;
     private String path;
     private int size_kb;
 
@@ -20,32 +21,43 @@ public class File
         this.name = name;
         this.extension = extension;
         this.sectors = sectors;
-        //this.creation_date = ; 
-        //this.modification_date = modification_date;
+        this.creation_date = getActual_date(); 
+        this.modification_date = getActual_date();
         this.path = path;
         this.size_kb = size_kb;
     }
 
     
+    public String getActual_date()
+    {
+        Date now = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+        return formateador.format(now);   
+    }
+    
+    
     public void setContent(String content) 
     {
         this.content = content;
+        this.modification_date = getActual_date();
     }
 
     
     public void setName(String name) 
     {
         this.name = name;
+        this.modification_date = getActual_date();
     }
 
     
     public void setExtension(String extension) 
     {
         this.extension = extension;
+        this.modification_date = getActual_date();
     }
 
     
-    public void setModification_date(Date modification_date) 
+    public void setModification_date(String modification_date) 
     {
         this.modification_date = modification_date;
     }
@@ -54,6 +66,7 @@ public class File
     public void setPath(String path) 
     {
         this.path = path;
+        
     }
 
     
@@ -81,13 +94,13 @@ public class File
     }
 
     
-    public Date getCreation_date() 
+    public String getCreation_date() 
     {
         return creation_date;
     }
 
     
-    public Date getModification_date() 
+    public String getModification_date() 
     {
         return modification_date;
     }

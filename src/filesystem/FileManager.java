@@ -10,7 +10,7 @@ public class FileManager
 
     public FileManager(String initial_directory, int num_sectors, int sector_size) 
     {
-        this.initial_directory = new Directory(initial_directory);
+        this.initial_directory = new Directory(initial_directory, null);
         this.current_directory = this.initial_directory;
         this.num_sectors = num_sectors;
         this.sector_size = sector_size;
@@ -68,5 +68,16 @@ public class FileManager
     public int getSector_size() 
     {
         return sector_size;
+    }
+    
+    public String getPath(Directory directory)
+    {
+        String path = "";
+        while(directory != null)
+        {
+            path = directory.getDirectory_name() + "\\" + path;
+            directory = directory.getDirectory_father();
+        }
+        return initial_directory.getDirectory_name() + "\\:" + path;
     }
 }

@@ -5,10 +5,11 @@ public class Directory
 {    
     private String directory_name;
     private File current_file;
+    private Directory directory_father;
     private ArrayList<Directory> directories;
     private ArrayList<File> files;
 
-    public Directory(String directory_name) 
+    public Directory(String directory_name, Directory directory_father) 
     {
         this.directory_name = directory_name;
         this.directories = new ArrayList<Directory>();
@@ -22,9 +23,11 @@ public class Directory
     }
     
     
-    public void create_directory(String name)
+    public Directory create_directory(String name, Directory directory_father)
     {
-        
+        Directory directory = new Directory(name, directory_father);
+        directories.add(directory);
+        return directory;
     }
     
     
@@ -63,6 +66,17 @@ public class Directory
         return null;
     }
     
+    public boolean search_directory(String name)
+    {
+        for (Directory directory : directories) 
+        {
+            if (directory.getDirectory_name().equals(name)) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public void setDirectory_name(String directory_name) 
     {
@@ -86,5 +100,10 @@ public class Directory
     {
         return current_file;
     }
-
+    
+    public Directory getDirectory_father()
+    {
+        return directory_father;
+    }
+    
 }

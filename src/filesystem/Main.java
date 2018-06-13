@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         
+        String sDirectorioTrabajo = System.getProperty("user.dir");
+        
         GeneralFileManager general = new GeneralFileManager();
         
         Scanner scanner = new Scanner(System.in);
@@ -15,15 +17,15 @@ public class Main {
         System.out.println("+                           WELCOME                              +");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
         System.out.println("--------------------> Available Command List <--------------------\n");
-        System.out.println("    1) CRT: Create a new virtual disc ");
-        System.out.println("    2) FLE: Create a new file "); 
-        System.out.println("    3) MKDIR: Create a new directory ");
-        System.out.println("    4) CHDIR: Change current directory ");
-        System.out.println("    5) LDIR: List directory content");
-        System.out.println("    6) MFLE: Change file content");
-        System.out.println("    7) PPT: Display file properties");
-        System.out.println("    8) VIEW: Display file content");
-        System.out.println("    9) CPY: Copy file or directory");
+        System.out.println("    1)  CRT: Create a new virtual disc ");
+        System.out.println("    2)  FLE: Create a new file "); 
+        System.out.println("    3)  MKDIR: Create a new directory ");
+        System.out.println("    4)  CHDIR: Change current directory ");
+        System.out.println("    5)  LDIR: List directory content");
+        System.out.println("    6)  MFLE: Change file content");
+        System.out.println("    7)  PPT: Display file properties");
+        System.out.println("    8)  VIEW: Display file content");
+        System.out.println("    9)  CPY: Copy file or directory");
         System.out.println("    10) MOV: Move file or directory ");
         System.out.println("    11) REM: Remove file or directory");
         System.out.println("    12) TREE: Display flie system structure");
@@ -42,8 +44,13 @@ public class Main {
         
                
         while(true){
-             action_received = scanner.nextLine();
+            if(general.get_current_fileManager()!= null)
+            {
+                System.out.println(general.getActual_path());
+            }
+            action_received = scanner.nextLine();
             command = action_received.split(" ")[0];
+            command = command.toUpperCase();
             
             switch (command){
 
@@ -59,24 +66,47 @@ public class Main {
                     extension = action_received.split(" ")[2];
                     length = command.length() + name.length() + extension.length();
                     content = action_received.substring(length+3);
+                    break;
 
                 case "MKDIR": //  directory name
                     name = action_received.split(" ")[1];
+                    if(general.search_directory(name))
+                    {
+                        System.out.println("There's already a directory with the same name. Do you want to replace it? Y/N");
+                        String action = scanner.nextLine();
+                        action.toUpperCase();
+                        if(action.equals("Y"))
+                        {
+                            general.add_directory(name);
+                            System.out.println("Directory created successfully");
+                        }
+                    }
+                    else
+                    {
+                        general.add_directory(name);
+                        System.out.println("Directory created successfully");
+                    }
+                    break;
 
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
+                    break;
 
                 case "LDIR": // no parameters, list directory content
+                    break;
 
                 case "MFLE": //file name, new content
                     name = action_received.split(" ")[1];
                     length = command.length() + name.length();
                     content = action_received.substring(length+2);
+                    break;
 
                 case "PPT": //no parameters, display file properties
+                    break;
 
                 case "VIEW": //file name
                     name = action_received.split(" ")[1];
+                    break;
 
                 case "CPY": //use flags to choose
 
@@ -85,28 +115,36 @@ public class Main {
                         case "-vv": // virtual to virtual path
                             name = action_received.split(" ")[3];
                             new_path = action_received.split(" ")[4];
+                            break;
 
                         case "-rv": //real to virtual path
                             path = action_received.split(" ")[3];
                             new_path = action_received.split(" ")[4];
+                            break;
 
                         case "-vr": //virtual to real path
                             name = action_received.split(" ")[3];
                             new_path = action_received.split(" ")[4];
+                            break;
                     }
+                    break;
 
                 case "MOV": // file or directory name, new path, new name
                     name = action_received.split(" ")[1];
                     path = action_received.split(" ")[2];
                     rename = action_received.split(" ")[3];
+                    break;
 
                 case "REM": // file or directory name
-                    name = action_received.split(" ")[1];                
+                    name = action_received.split(" ")[1];   
+                    break;
 
                 case "TREE": //no parameters, display directory tree
+                    break;
 
                 case "FIND": // file or directory name
                     name = action_received.split(" ")[1];
+                    break;
 
                 default:
                     System.out.println("The command typed doesn't exist, type another one");
