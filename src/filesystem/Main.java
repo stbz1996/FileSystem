@@ -13,6 +13,7 @@ public class Main {
         String action_received; 
         String command;
         
+        
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+                           WELCOME                              +");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
@@ -90,9 +91,17 @@ public class Main {
 
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
+                    
+                    if(general.changeDirectory(path)){
+                        System.out.println(general.getActual_path());
+                    
+                    }else{
+                        System.out.println("The directory joined does not exist.\n");
+                    }
                     break;
 
                 case "LDIR": // no parameters, list directory content
+                    System.out.println(general.display_files_and_directories());
                     break;
 
                 case "MFLE": //file name, new content

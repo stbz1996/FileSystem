@@ -12,6 +12,7 @@ public class Directory
     public Directory(String directory_name, Directory directory_father) 
     {
         this.directory_name = directory_name;
+        this.directory_father = directory_father;
         this.directories = new ArrayList<Directory>();
         this.files = new ArrayList<File>();
     }
@@ -104,6 +105,35 @@ public class Directory
     public Directory getDirectory_father()
     {
         return directory_father;
+    }
+    
+    public Directory getDirectory(String name){
+        
+        for (Directory directory : directories) 
+        {
+            if (directory.getDirectory_name().equals(name)) 
+            {
+                return directory;
+            }
+        }
+        return null;
+        
+    }
+
+    public String getDirectoryContent(){
+        String content = "Directories:";
+        
+        for(Directory directory : directories){
+            content += "\n\t" + directory.getDirectory_name();
+        }
+        
+        content += "\nFiles:";
+        
+        for(File file : files){
+            content += "\n\t" + file.getName();
+        }
+        
+        return content + "\n";
     }
     
 }

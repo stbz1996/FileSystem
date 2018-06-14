@@ -19,7 +19,8 @@ public class FileManager
     
     public String display_files_and_directories()
     {
-        return null;
+        return current_directory.getDirectoryContent();
+        
     }
     
     
@@ -80,4 +81,25 @@ public class FileManager
         }
         return initial_directory.getDirectory_name() + "\\:" + path;
     }
+    
+    public boolean changeDirectory(String path){
+        
+        Directory result = initial_directory;
+        Directory temp;
+        path = path.replace(path.split(":")[0]+":\\", "");
+        
+        for (String split : path.split("\\")) {
+            temp = result.getDirectory(split);
+            if(temp != null){
+                result = temp;
+            }else{
+                return false;
+            }
+        }  
+        
+        current_directory = result;
+        return true;
+        
+    }
+    
 }
