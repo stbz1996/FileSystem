@@ -13,7 +13,6 @@ public class Main {
         String action_received; 
         String command;
         
-        
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+                           WELCOME                              +");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n");
@@ -53,13 +52,12 @@ public class Main {
             command = action_received.split(" ")[0];
             command = command.toUpperCase();
             
-            switch (command){
-
+            switch (command)
+            {
                 case "CRT": // num sectors, sector size, name
                     num_sectors = Integer.parseInt(action_received.split(" ")[1]);
                     sector_size = Integer.parseInt(action_received.split(" ")[2]);
                     name = action_received.split(" ")[3];
-
                     general.addFileSystem(num_sectors, sector_size, name);
 
                 case "FLE": // name, extension, content
@@ -91,10 +89,8 @@ public class Main {
 
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
-                    
                     if(general.changeDirectory(path)){
                         System.out.println(general.getActual_path());
-                    
                     }else{
                         System.out.println("The directory joined does not exist.\n");
                     }

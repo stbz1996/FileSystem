@@ -7,21 +7,26 @@ public class GeneralFileManager
     private ArrayList<FileManager> file_managers = new ArrayList<>(); 
     private FileManager current_filemanager;
 
+    /* 
+    Constructor 
+    */
     public GeneralFileManager() {}
 
+    
+    /*
+    This function create a new virtual disk that is the main directory
+    Parameters: 
+        int num_sectors: It is the number of sectors of the disk
+        int sector_size: It is the size in KB of each sector 
+        String directory_name: It is the name of the virtual disk
+    */
     public void addFileSystem(int num_sectors, int sector_size, String directory_name){
-        boolean exist = false;
-        for(FileManager root : file_managers){
-            if(root.getInitial_directory().getDirectory_name() == directory_name){
-                exist = true;
-            }
-        }
-        if(exist){
-            System.out.println("The virtual disc joined already exist");
-        }else{
+        if (current_filemanager == null) {
             current_filemanager = new FileManager(directory_name, num_sectors, sector_size);
-            file_managers.add(current_filemanager);
             System.out.println("The new virtual disc was created successfully");
+        }
+        else{
+            System.out.println("There is a virtual disk now");
         }
     }
     
@@ -41,6 +46,7 @@ public class GeneralFileManager
         return current_filemanager;
     }   
     
+    
     public boolean search_directory(String name)
     {
         if(current_filemanager.getCurrent_directory().search_directory(name))
@@ -53,21 +59,25 @@ public class GeneralFileManager
         }
     }
     
+    
     public void add_directory(String name)
     {
         Directory directory = current_filemanager.getCurrent_directory().create_directory(name, current_filemanager.getCurrent_directory());
         current_filemanager.setCurrent_directory(directory);
     }
     
+    
     public String getActual_path()
     {
         return current_filemanager.getPath(current_filemanager.getCurrent_directory());
     }
     
+    
     public Boolean changeDirectory(String path){
         
         return current_filemanager.changeDirectory(path);
     }
+    
     
     public String display_files_and_directories()
     {

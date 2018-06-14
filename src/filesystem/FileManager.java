@@ -20,7 +20,6 @@ public class FileManager
     public String display_files_and_directories()
     {
         return current_directory.getDirectoryContent();
-        
     }
     
     
