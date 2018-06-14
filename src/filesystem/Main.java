@@ -1,9 +1,11 @@
 package filesystem;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         String sDirectorioTrabajo = System.getProperty("user.dir");
         
@@ -12,6 +14,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String action_received; 
         String command;
+        //System.out.println(System.getProperty("user.dir"));
         
         
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -67,6 +70,21 @@ public class Main {
                     extension = action_received.split(" ")[2];
                     length = command.length() + name.length() + extension.length();
                     content = action_received.substring(length+3);
+                    if(general.search_file(name))
+                    {
+                       System.out.println("There's already a file with the same name. Do you want to replace it? Y/N");
+                        String action = scanner.nextLine();
+                        action.toUpperCase();
+                        if(action.equals("Y"))
+                        {
+                            //HAY QUE BORRAR EL ARCHIVO DEL FILE SYSTEM Y DEL ARCHIVO (DISCO VIRTUAL) Y CREARLO DE NUEVO
+                            //FALTA ESO!
+                        } 
+                    }
+                    else
+                    {
+                        general.add_file(content, name, extension, length);
+                    }
                     break;
 
                 case "MKDIR": //  directory name

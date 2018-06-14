@@ -18,9 +18,10 @@ public class Directory
     }
 
     
-    public void create_file(String content, String extension, String name)
+    public void create_file(String content, String name, String extension, ArrayList<Integer> sectors, String path, int size_kb)
     {
-        
+        File file = new File(content, name, extension, sectors, path, size_kb);
+        files.add(file);
     }
     
     
@@ -62,16 +63,25 @@ public class Directory
     }
     
     
-    public String search_file(String name)
-    {
-        return null;
-    }
+  
     
     public boolean search_directory(String name)
     {
         for (Directory directory : directories) 
         {
             if (directory.getDirectory_name().equals(name)) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean search_file(String name)
+    {
+        for (File file : files) 
+        {
+            if (file.getName().equals(name)) 
             {
                 return true;
             }
