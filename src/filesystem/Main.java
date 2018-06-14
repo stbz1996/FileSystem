@@ -55,56 +55,99 @@ public class Main {
             command = action_received.split(" ")[0];
             command = command.toUpperCase();
             
+            int ret;
             switch (command)
             {
                 case "CRT": // num sectors, sector size, name
                     num_sectors = Integer.parseInt(action_received.split(" ")[1]);
                     sector_size = Integer.parseInt(action_received.split(" ")[2]);
                     name = action_received.split(" ")[3];
-                    general.addFileSystem(num_sectors, sector_size, name);
-
+                    ret = general.addFileSystem(num_sectors, sector_size, name);
+                    switch (ret)
+                    {
+                        case 0:
+                            System.out.println("There is a virtual disk now");
+                            break;
+                        
+                        case 1:
+                            System.out.println("The virtual disc was created successfully");
+                            break;
+                    }
+                    
                 case "FLE": // name, extension, content
                     name = action_received.split(" ")[1];
                     extension = action_received.split(" ")[2];
                     length = command.length() + name.length() + extension.length();
                     content = action_received.substring(length+3);
-                    if(general.search_file(name))
+                    ret = general.add_file(content, name, extension, length);
+                    switch (ret)
                     {
-                       System.out.println("There's already a file with the same name. Do you want to replace it? Y/N");
-                        String action = scanner.nextLine();
-                        action.toUpperCase();
-                        if(action.equals("Y"))
-                        {
-                            //HAY QUE BORRAR EL ARCHIVO DEL FILE SYSTEM Y DEL ARCHIVO (DISCO VIRTUAL) Y CREARLO DE NUEVO
-                            //FALTA ESO!
-                        } 
-                    }
-                    else
-                    {
-                        general.add_file(content, name, extension, length);
+                        case 0:
+                            System.out.println("There's already a file with the same name. Do you want to replace it? Y/N");
+                            String action = scanner.nextLine();
+                            if(action.equals("Y"))
+                            {
+                                System.out.println("Caso 2 pendiente...");
+                               //HAY QUE BORRAR EL ARCHIVO DEL FILE SYSTEM Y DEL ARCHIVO (DISCO VIRTUAL) Y CREARLO DE NUEVO
+                               //FALTA ESO!
+                            } 
+                            break;
+                            
+                        case 1:
+                            System.out.println("There isn't enough space for this file");
+                            break;
+                            
+                        case 2:
+                            System.out.println("Directory created successfully");
+                            break;
                     }
                     break;
-
+ 
+                    
                 case "MKDIR": //  directory name
                     name = action_received.split(" ")[1];
-                    if(general.search_directory(name))
-                    {
-                        System.out.println("There's already a directory with the same name. Do you want to replace it? Y/N");
-                        String action = scanner.nextLine();
-                        action.toUpperCase();
-                        if(action.equals("Y"))
-                        {
-                            general.add_directory(name);
+                    ret = general.add_directory(name);
+                    switch (ret){
+                        case 0:
+                            System.out.println("There's already a directory with the same name. Do you want to replace it? Y/N");
+                            String action = scanner.nextLine();
+                            if(action.equals("Y"))
+                            {
+                                System.out.println("Caso 1 pendiente...");
+                                // Borramos el archivo y creamos otro nuevo 
+                                // FALTA HACERLO
+                            }
+                            break;
+                        
+                        case 1:
                             System.out.println("Directory created successfully");
-                        }
-                    }
-                    else
-                    {
-                        general.add_directory(name);
-                        System.out.println("Directory created successfully");
+                            break;
                     }
                     break;
 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
                     if(general.changeDirectory(path)){

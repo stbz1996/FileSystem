@@ -1,5 +1,4 @@
 
 
-C:\\prueba1
 
-C:\\prueba1
+C:\dir1\dir2\\xdxx
