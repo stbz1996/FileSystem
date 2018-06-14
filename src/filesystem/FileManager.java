@@ -1,11 +1,15 @@
 package filesystem;
 
+import java.util.ArrayList;
+
 public class FileManager
 {   
     private Directory initial_directory;
     private Directory current_directory;
     private int num_sectors;
     private int sector_size;
+    private int free_sectors;
+    private ArrayList<Boolean> virtual_disk;
 
 
     public FileManager(String initial_directory, int num_sectors, int sector_size) 
@@ -14,6 +18,18 @@ public class FileManager
         this.current_directory = this.initial_directory;
         this.num_sectors = num_sectors;
         this.sector_size = sector_size;
+        this.free_sectors = num_sectors;
+        this.virtual_disk = getInitial_disk();
+    }
+    
+    public ArrayList<Boolean> getInitial_disk()
+    {
+        ArrayList<Boolean> virtual_disc = new ArrayList<>();
+        for(int i = 0; i < num_sectors; i++)
+        {
+            virtual_disc.add(false);
+        }
+        return virtual_disc;
     }
     
     
@@ -45,6 +61,16 @@ public class FileManager
     {
         this.num_sectors = num_sectors;
     }
+    
+    public void setFree_sectors(int free_sectors)
+    {
+        this.free_sectors = free_sectors;
+    }
+    
+    public void setVirtual_disk(ArrayList<Boolean> virtual_disk)
+    {
+        this.virtual_disk = virtual_disk;
+    }
 
    
     public Directory getInitial_directory() 
@@ -64,21 +90,30 @@ public class FileManager
         return num_sectors;
     }
 
+    public int getFree_sectors() 
+    {
+        return free_sectors;
+    }
     
     public int getSector_size() 
     {
         return sector_size;
     }
     
+    public ArrayList<Boolean> getVirtual_disk()
+    {
+        return virtual_disk;
+    }
+    
     public String getPath(Directory directory)
     {
         String path = "";
-        while(directory != null)
+        while(directory.getDirectory_father() != null)
         {
             path = directory.getDirectory_name() + "\\" + path;
             directory = directory.getDirectory_father();
         }
-        return initial_directory.getDirectory_name() + "\\:" + path;
+        return initial_directory.getDirectory_name() + ":\\" + path;
     }
     
     public boolean changeDirectory(String path){

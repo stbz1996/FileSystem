@@ -1,5 +1,10 @@
 package filesystem;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class GeneralFileManager 
@@ -58,12 +63,70 @@ public class GeneralFileManager
             return false;
         }
     }
+       
+
+    public boolean search_file(String name)
+    {
+        if(current_filemanager.getCurrent_directory().search_file(name))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     
     
     public void add_directory(String name)
     {
         Directory directory = current_filemanager.getCurrent_directory().create_directory(name, current_filemanager.getCurrent_directory());
-        current_filemanager.setCurrent_directory(directory);
+        //current_filemanager.setCurrent_directory(directory);
+    }
+    
+    
+    public void add_file(String content, String name, String extension, int size_kb) throws IOException
+    {
+        float cant_sectors = (float) size_kb / current_filemanager.getSector_size();  //number of sectors needed for this file
+        if((int) Math.ceil(cant_sectors) > current_filemanager.getFree_sectors())
+        {
+            System.out.println("There isn't enough space for this file.");
+        }
+        else
+        {
+            String path = getActual_path() + "\\" + name;
+            ArrayList<Integer> sectors = write_in_virtual_disk(path,(int) Math.ceil(cant_sectors));
+            current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
+        }
+    }
+    
+    
+    public ArrayList<Integer> write_in_virtual_disk(String path, int cant_sectors) throws FileNotFoundException, IOException
+    {
+        FileOutputStream file_virtual_disk = new FileOutputStream("virtual_disk.txt");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(file_virtual_disk));
+        
+        ArrayList<Boolean> virtual_disk = current_filemanager.getVirtual_disk();
+        ArrayList<Integer> sectors = new ArrayList<>();
+        
+        int index = 0;
+        while(index < virtual_disk.size() && cant_sectors > 0)
+        {
+            writer.newLine();
+            if (virtual_disk.get(index) == false)
+            {
+                writer.write(path);
+                writer.newLine();
+                cant_sectors--;
+                virtual_disk.set(index, Boolean.TRUE);
+                sectors.add(index);
+            }
+            index++;
+        }
+        writer.close();
+        file_virtual_disk.close();
+        current_filemanager.setVirtual_disk(virtual_disk);
+        return sectors;
     }
     
     
