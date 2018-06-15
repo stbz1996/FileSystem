@@ -1,5 +1,10 @@
 package filesystem;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class FileManager
@@ -12,7 +17,7 @@ public class FileManager
     private ArrayList<Boolean> virtual_disk;
 
 
-    public FileManager(String initial_directory, int num_sectors, int sector_size) 
+    public FileManager(String initial_directory, int num_sectors, int sector_size) throws IOException 
     {
         this.initial_directory = new Directory(initial_directory, null);
         this.current_directory = this.initial_directory;
@@ -22,14 +27,18 @@ public class FileManager
         this.virtual_disk = getInitial_disk();
     }
     
-    public ArrayList<Boolean> getInitial_disk()
-    {
-        ArrayList<Boolean> virtual_disc = new ArrayList<>();
-        for(int i = 0; i < num_sectors; i++)
-        {
-            virtual_disc.add(false);
+    public ArrayList<Boolean> getInitial_disk() throws FileNotFoundException, IOException {
+        ArrayList<Boolean> virtual_disk = new ArrayList<>();
+        FileOutputStream file_virtual_disk = new FileOutputStream("virtual_disk.txt");
+        BufferedWriter writter = new BufferedWriter(new OutputStreamWriter(file_virtual_disk));
+
+        for (int i = 0; i < num_sectors; i++) {
+            virtual_disk.add(false);
+            writter.write("-");
+            writter.newLine();
         }
-        return virtual_disc;
+        writter.close();
+        return virtual_disk;
     }
     
     

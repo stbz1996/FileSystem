@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 
 hola:\\10
+=======
+C:\\prueba1
+C:\\prueba2
+C:\Dir\\prueba3
+-
+-
+>>>>>>> 256ff63ce4b6d5dec9161f092149590a0a514d9b
