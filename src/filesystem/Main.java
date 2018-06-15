@@ -14,7 +14,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String action_received; 
         String command;
-        //System.out.println(System.getProperty("user.dir"));
         
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+                           WELCOME                              +");
@@ -73,7 +72,7 @@ public class Main {
                             System.out.println("The virtual disc was created successfully");
                             break;
                     }
-                    
+                    break;
                 case "FLE": // name, extension, content
                     name = action_received.split(" ")[1];
                     extension = action_received.split(" ")[2];
@@ -98,7 +97,7 @@ public class Main {
                             break;
                             
                         case 2:
-                            System.out.println("Directory created successfully");
+                            System.out.println("File created successfully");
                             break;
                     }
                     break;

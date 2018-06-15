@@ -1,8 +1,10 @@
 package filesystem;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ public class GeneralFileManager
         0: There is a virtual disk now
         1: The virtual disc was created successfully
     */
-    public int addFileSystem(int num_sectors, int sector_size, String directory_name){
+    public int addFileSystem(int num_sectors, int sector_size, String directory_name) throws IOException{
         if (current_filemanager == null) {
             current_filemanager = new FileManager(directory_name, num_sectors, sector_size);
             return 1;
@@ -132,46 +134,75 @@ public class GeneralFileManager
             else
             {
                 String path = getActual_path() + "\\" + name;
-                ArrayList<Integer> sectors = write_in_virtual_disk(path,(int) Math.ceil(cant_sectors));
+                ArrayList<Integer> sectors = write_in_virtual_disk(path, (int) Math.ceil(cant_sectors));
                 current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
+                current_filemanager.setFree_sectors(current_filemanager.getFree_sectors() - (int) Math.ceil(cant_sectors));
                 return 2;
             }
         }
     }
     
-   
-    
-    
-    
-    
-    
-    
-    public ArrayList<Integer> write_in_virtual_disk(String path, int cant_sectors) throws FileNotFoundException, IOException
-    {
-        FileOutputStream file_virtual_disk = new FileOutputStream("virtual_disk.txt");
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(file_virtual_disk));
-        
+    /*
+    This function add a new file in the virtual disk
+    Paramethers:
+        String path: It is the file path
+        int cant sectors: number of sectors that the file needs
+    Returns:
+        Array<integer> sectors: It contains the index sectors for this file
+     */
+    public ArrayList<Integer> write_in_virtual_disk(String path, int cant_sectors) throws FileNotFoundException, IOException {
         ArrayList<Boolean> virtual_disk = current_filemanager.getVirtual_disk();
+        ArrayList<String> file_virtual_disk = read_virtual_disk();
         ArrayList<Integer> sectors = new ArrayList<>();
-        
+
         int index = 0;
-        while(index < virtual_disk.size() && cant_sectors > 0)
-        {
-            writer.newLine();
-            if (virtual_disk.get(index) == false)
-            {
-                writer.write(path);
-                writer.newLine();
-                cant_sectors--;
+        while (index < virtual_disk.size() && cant_sectors > 0) {
+            if (file_virtual_disk.get(index).equals("-")) {
+                file_virtual_disk.set(index, path);
                 virtual_disk.set(index, Boolean.TRUE);
-                sectors.add(index);
+                cant_sectors--;
             }
             index++;
         }
-        writer.close();
-        file_virtual_disk.close();
+        write_virtual_disk(file_virtual_disk);
         current_filemanager.setVirtual_disk(virtual_disk);
         return sectors;
+    }
+
+    /*
+    This function returns an arraylist with the content of the virtual disk
+     */
+    public ArrayList<String> read_virtual_disk() throws FileNotFoundException, IOException {
+        ArrayList<String> virtual_disk = new ArrayList<>();
+
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader("virtual_disk.txt"));
+            String line = reader.readLine();
+            while (line != null) {
+                virtual_disk.add(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return virtual_disk;
+    }
+
+    /*
+    This function writes in the virtual disk the arraylist content
+     */
+    public void write_virtual_disk(ArrayList<String> virtual_disk) throws IOException {
+        FileOutputStream file_virtual_disk = new FileOutputStream("virtual_disk.txt");
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(file_virtual_disk));
+
+        for (String line : virtual_disk) {
+            writer.write(line);
+            writer.newLine();
+        }
+
+        writer.close();
     }
     
     
