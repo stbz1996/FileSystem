@@ -130,10 +130,11 @@ public class FileManager
     public boolean changeDirectory(String path){    
         Directory result = initial_directory;
         Directory temp;
-        path = path.replace(path.split(":")[0]+":\\", "");
-        System.out.println("#####" + path); 
+       
+        path = path.replace("\\\\", ",");
+        path = path.replaceFirst(path.split(":")[0]+":,", "");
         
-        for (String split : path.split("\\")) {
+        for (String split : path.split(",")) {
             temp = result.getDirectory(split);
             if(temp != null){
                 result = temp;

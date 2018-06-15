@@ -143,10 +143,9 @@ public class Main {
                     
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
-                    System.out.println(path);
+                    
                     
                     boolean ret1 = general.changeDirectory(path);
-                    System.out.println(ret1);
                     
                     /*if(){
                         System.out.println(general.getActual_path());
