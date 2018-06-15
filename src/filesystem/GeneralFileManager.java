@@ -181,15 +181,14 @@ public class GeneralFileManager
     }
     
     
-    public Boolean changeDirectory(String path){
-        
+    public Boolean changeDirectory(String path)
+    {
         return current_filemanager.changeDirectory(path);
     }
     
     
     public String display_files_and_directories()
     {
-        return current_filemanager.display_files_and_directories();
-        
+        return current_filemanager.display_files_and_directories();    
     }
 }

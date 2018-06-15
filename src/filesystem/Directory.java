@@ -130,6 +130,7 @@ public class Directory
         
     }
 
+    
     public String getDirectoryContent(){
         String content = "Directories:";
         

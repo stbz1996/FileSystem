@@ -116,11 +116,13 @@ public class FileManager
         return initial_directory.getDirectory_name() + ":\\" + path;
     }
     
-    public boolean changeDirectory(String path){
-        
+    
+    
+    public boolean changeDirectory(String path){    
         Directory result = initial_directory;
         Directory temp;
         path = path.replace(path.split(":")[0]+":\\", "");
+        System.out.println("#####" + path); 
         
         for (String split : path.split("\\")) {
             temp = result.getDirectory(split);
@@ -130,7 +132,6 @@ public class FileManager
                 return false;
             }
         }  
-        
         current_directory = result;
         return true;
         
