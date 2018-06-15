@@ -104,8 +104,28 @@ public class GeneralFileManager
             return 1;
         }
     }
-    
-    
+     
+     /*
+    This function displays the file content
+    Paramethers:
+        String name: It is the file name
+    Returns:
+        0: Means "There's no a file with that name."
+        1: Means "The content was displayed successfully"
+    */
+    public int display_file_content(String file_name)
+    {
+        if(search_file(file_name))
+        {
+            System.out.println(current_filemanager.getCurrent_directory().getFile(file_name).getContent());
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+  
     /*
     This function add a new file in the current directory 
     Paramethers:
@@ -116,7 +136,7 @@ public class GeneralFileManager
     Returns:
         0: Means "There's already a file with the same name."
         1: Means "There isn't enough space for this file"
-        2: Means "Directory created successfully"
+        2: Means "File created successfully"
     */
     public int add_file(String content, String name, String extension, int size_kb) throws IOException
     {
@@ -203,6 +223,46 @@ public class GeneralFileManager
         }
 
         writer.close();
+    }
+    
+    /*
+    This function moves a file/directory to another directory
+    Paramethers:
+        String name: It is the name of the file/directory
+        String path: It is the new path
+        String rename: It is the new name for this file/directory
+    Returns:
+        0: Means "There's already a file with the same name."
+        1: Means "There isn't enough space for this file"
+        2: Means "File/Directory not found"
+        3: Means "File moved successfully"
+        4: Means "Directory moved successfully"
+        5: Means "Path not found"
+     */
+    public int move_file_or_directory(String name, String path, String rename)
+    {
+        if(search_directory(name))
+        {
+            Directory directory = current_filemanager.getCurrent_directory().remove_directory(name);
+            if(changeDirectory(path))
+            {
+                current_filemanager.getCurrent_directory().create_directory(name, current_filemanager.getCurrent_directory());
+                //add files and directories
+                return 4;
+            }
+            else
+            {
+                return 5;
+            }
+        }
+        else if(search_file(name))
+        {
+            return 3;
+        }
+        else
+        {
+            return 2;
+        }
     }
     
     

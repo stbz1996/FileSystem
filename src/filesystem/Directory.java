@@ -57,13 +57,20 @@ public class Directory
     }
     
     
-    public void remove_directory()
+    public Directory remove_directory(String name)
     {
-        
+        Directory directory_removed;
+        for(Directory directory : directories)
+        {
+            if(directory.getDirectory_name().equals(name))
+            {
+               directory_removed = directory;
+               directories.remove(directory);
+               return directory_removed;
+            }
+        }
+        return null;
     }
-    
-    
-  
     
     public boolean search_directory(String name)
     {
@@ -128,6 +135,19 @@ public class Directory
         }
         return null;
         
+    }
+    
+    public File getFile(String name)
+    {
+        
+        for (File file : files) 
+        {
+            if (file.getName().equals(name)) 
+            {
+                return file;
+            }
+        }
+        return null;
     }
 
     
