@@ -18,10 +18,11 @@ public class Directory
     }
 
     
-    public void create_file(String content, String name, String extension, ArrayList<Integer> sectors, String path, int size_kb)
+    public File create_file(String content, String name, String extension, ArrayList<Integer> sectors, String path, int size_kb)
     {
         File file = new File(content, name, extension, sectors, path, size_kb);
         files.add(file);
+        return file;
     }
     
     

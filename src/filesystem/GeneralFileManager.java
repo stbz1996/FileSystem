@@ -153,9 +153,9 @@ public class GeneralFileManager
             }
             else
             {
-                String path = getActual_path() + "\\" + name;
+                String path = getActual_path() + "\\" + name + "." + extension + " Content: " + content + " Size:" + size_kb;
                 ArrayList<Integer> sectors = write_in_virtual_disk(path, (int) Math.ceil(cant_sectors));
-                current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
+                File file = current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
                 current_filemanager.setFree_sectors(current_filemanager.getFree_sectors() - (int) Math.ceil(cant_sectors));
                 return 2;
             }
