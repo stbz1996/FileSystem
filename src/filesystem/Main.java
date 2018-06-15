@@ -43,18 +43,17 @@ public class Main {
         int num_sectors;
         int sector_size;
         int length = 0;
-        
+        int ret;
                
         while(true){
             if(general.get_current_fileManager()!= null)
             {
-                System.out.println(general.getActual_path());
+                System.out.println("--> " + general.getActual_path());
             }
             action_received = scanner.nextLine();
             command = action_received.split(" ")[0];
             command = command.toUpperCase();
             
-            int ret;
             switch (command)
             {
                 case "CRT": // num sectors, sector size, name
@@ -62,17 +61,14 @@ public class Main {
                     sector_size = Integer.parseInt(action_received.split(" ")[2]);
                     name = action_received.split(" ")[3];
                     ret = general.addFileSystem(num_sectors, sector_size, name);
-                    switch (ret)
-                    {
-                        case 0:
-                            System.out.println("There is a virtual disk now");
-                            break;
-                        
-                        case 1:
-                            System.out.println("The virtual disc was created successfully");
-                            break;
+                    if (ret == 0) {
+                        System.out.println("#################################");
+                        System.out.println("## There is a virtual disk now ##");
+                        System.out.println("#################################");
                     }
                     break;
+                    
+                    
                 case "FLE": // name, extension, content
                     name = action_received.split(" ")[1];
                     extension = action_received.split(" ")[2];
@@ -82,7 +78,9 @@ public class Main {
                     switch (ret)
                     {
                         case 0:
-                            System.out.println("There's already a file with the same name. Do you want to replace it? Y/N");
+                            System.out.println("###############################################################################");
+                            System.out.println("## There's already a file with the same name. Do you want to replace it? Y/N ##");
+                            System.out.println("###############################################################################");
                             String action = scanner.nextLine();
                             if(action.equals("Y"))
                             {
@@ -93,11 +91,9 @@ public class Main {
                             break;
                             
                         case 1:
-                            System.out.println("There isn't enough space for this file");
-                            break;
-                            
-                        case 2:
-                            System.out.println("File created successfully");
+                            System.out.println("############################################");
+                            System.out.println("## There isn't enough space for this file ##");
+                            System.out.println("############################################");
                             break;
                     }
                     break;
@@ -108,7 +104,9 @@ public class Main {
                     ret = general.add_directory(name);
                     switch (ret){
                         case 0:
-                            System.out.println("There's already a directory with the same name. Do you want to replace it? Y/N");
+                            System.out.println("####################################################################################");
+                            System.out.println("## There's already a directory with the same name. Do you want to replace it? Y/N ##");
+                            System.out.println("####################################################################################");
                             String action = scanner.nextLine();
                             if(action.equals("Y"))
                             {
@@ -116,10 +114,6 @@ public class Main {
                                 // Borramos el archivo y creamos otro nuevo 
                                 // FALTA HACERLO
                             }
-                            break;
-                        
-                        case 1:
-                            System.out.println("Directory created successfully");
                             break;
                     }
                     break;
