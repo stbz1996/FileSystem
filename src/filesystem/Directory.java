@@ -131,7 +131,8 @@ public class Directory
     }
 
     
-    public String getDirectoryContent(){
+    public String getDirectoryContent()
+    {
         String content = "Directories:";
         
         for(Directory directory : directories){
@@ -147,4 +148,76 @@ public class Directory
         return content + "\n";
     }
     
+    
+    
+    
+    
+    
+    
+    
+    /*
+    This function changed the file content and size
+    Paramethers:
+        String name: It is the name of the file.
+        String content: It is the new content of the file.
+        int sizekb: It is the size in KB of the nex content
+    Returns:
+        True: Everithing is ok
+        false: Something is wrong 
+    */
+    public boolean setFileContent(String name, String content, int sizekb)
+    {
+        for (File file : files) 
+        {
+            if (file.getName().equals(name)) 
+            {
+                file.setContent(content);
+                file.setSize_kb(sizekb);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    
+    public String showFileProperties(String name)
+    {
+        String properties = "";
+        for (File file : files) 
+        {
+            if (file.getName().equals(name)) 
+            {
+                properties += "     Name:                   "+ file.getName() + "\n";
+                properties += "     Extension:              " + file.getExtension() + "\n";
+                properties += "     Creation date:          " + file.getCreation_date().toString()+ "\n";
+                properties += "     Last modification date: " + file.getModification_date().toString()+ "\n";
+                properties += "     Size in KB:             " + file.getSize_kb()+ "\n";
+            }
+        }
+        return properties;
+    }
+    
+    
+    
+    
+    
+    public String getDirectoryTree()
+    {
+        String content = " - " + getDirectory_name() + "\n";
+        
+        for(Directory directory : directories)
+        {
+            
+            content += " - " + directory.getDirectoryTree();
+        }
+        /*
+        content += "\nFiles:";
+        
+        for(File file : files){
+            content += "\n\t" + file.getName();
+        }
+        */
+        return content + "\n";
+    }
 }

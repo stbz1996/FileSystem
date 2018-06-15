@@ -44,6 +44,7 @@ public class Main {
         int sector_size;
         int length = 0;
         int ret;
+        boolean flag;
                
         while(true){
             if(general.get_current_fileManager()!= null)
@@ -119,74 +120,39 @@ public class Main {
                     break;
 
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
-                    
-                    
-                    boolean ret1 = general.changeDirectory(path);
-                    
-                    /*if(){
-                        System.out.println(general.getActual_path());
-                    }else{
+                    flag = general.changeDirectory(path);
+                    if(flag == false){
                         System.out.println("The directory joined does not exist.\n");
-                    }*/
+                    }
                     break;
 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                 case "LDIR": // no parameters, list directory content
                     System.out.println(general.display_files_and_directories());
                     break;
                     
                     
-                    
-                    
-                    
-                    
-                    
-                    
-
                 case "MFLE": //file name, new content
                     name = action_received.split(" ")[1];
                     length = command.length() + name.length();
                     content = action_received.substring(length+2);
+                    flag = general.setFileContent(name, content, length);
+                    if (flag == false) {
+                        System.out.println("The file does not exist");
+                    }
                     break;
 
+                    
                 case "PPT": //no parameters, display file properties
+                    name = action_received.split(" ")[1];
+                    System.out.println(general.showFileProperties(name));
                     break;
 
+                    
+                    
+                    
                 case "VIEW": //file name
                     name = action_received.split(" ")[1];
                     break;
@@ -222,9 +188,20 @@ public class Main {
                     name = action_received.split(" ")[1];   
                     break;
 
+                    
+                    
+                    
+                    
+                 
                 case "TREE": //no parameters, display directory tree
+                    System.out.println(general.display_Three());
                     break;
 
+                    
+                    
+                    
+                    
+                    
                 case "FIND": // file or directory name
                     name = action_received.split(" ")[1];
                     break;

@@ -142,6 +142,7 @@ public class GeneralFileManager
         }
     }
     
+    
     /*
     This function add a new file in the virtual disk
     Paramethers:
@@ -169,6 +170,7 @@ public class GeneralFileManager
         return sectors;
     }
 
+    
     /*
     This function returns an arraylist with the content of the virtual disk
      */
@@ -211,7 +213,14 @@ public class GeneralFileManager
         return current_filemanager.getPath(current_filemanager.getCurrent_directory());
     }
     
-    
+    /*
+    This function change the current directory of the file sistem. 
+    Paramethers:
+        String path: It is the path of the new directory
+    Returns
+        0: The directory does not exist
+        1: The directory exist
+    */
     public Boolean changeDirectory(String path)
     {
         return current_filemanager.changeDirectory(path);
@@ -221,5 +230,47 @@ public class GeneralFileManager
     public String display_files_and_directories()
     {
         return current_filemanager.display_files_and_directories();    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    /*
+    This function changed the file content and size
+    Paramethers:
+        String name: It is the name of the file.
+        String content: It is the new content of the file.
+        int sizekb: It is the size in KB of the nex content
+    Returns:
+        True: Everithing is ok
+        false: Something is wrong 
+    */
+    public boolean setFileContent(String fileName, String content, int sizeKB)
+    {
+        boolean flag = current_filemanager.getCurrent_directory().setFileContent(fileName, content, sizeKB);
+        return flag;
+    }
+    
+    
+    /*
+    This function show the properties of the file
+    Paramethers:
+        String name: It is the name of the file to search
+    Returns:
+        String: It is the properties of the file
+    */
+    public String showFileProperties(String name)
+    {
+        return current_filemanager.getCurrent_directory().showFileProperties(name); 
+    }
+
+
+    public String display_Three()
+    {
+        return current_filemanager.display_Three();    
     }
 }

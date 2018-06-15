@@ -147,4 +147,10 @@ public class FileManager
         
     }
     
+    
+    public String display_Three()
+    {
+        return initial_directory.getDirectoryTree();
+    }
+    
 }
