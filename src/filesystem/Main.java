@@ -14,6 +14,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String action_received; 
         String command;
+
         
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+                           WELCOME                              +");
@@ -118,23 +119,42 @@ public class Main {
                             break;
                     }
                     break;
+<<<<<<< HEAD
 
                     
                 case "CHDIR": //path
                     path = action_received.split(" ")[1];
                     flag = general.changeDirectory(path);
                     if(flag == false){
+=======
+     
+                case "CHDIR": //path
+                    path = action_received.split(" ")[1];
+                    boolean ret1 = general.changeDirectory(path);
+                    
+                    /*if(){
+                        System.out.println(general.getActual_path());
+                    }else{
+>>>>>>> f09fd9fdbcb9aa6e2b4987f4b109fb868bc48dca
                         System.out.println("The directory joined does not exist.\n");
                     }
                     break;
+<<<<<<< HEAD
 
                     
+=======
+                
+>>>>>>> f09fd9fdbcb9aa6e2b4987f4b109fb868bc48dca
                 case "LDIR": // no parameters, list directory content
                     System.out.println(general.display_files_and_directories());
                     break;
                     
+<<<<<<< HEAD
                     
                 case "MFLE": //file name, new content
+=======
+                 case "MFLE": //file name, new content
+>>>>>>> f09fd9fdbcb9aa6e2b4987f4b109fb868bc48dca
                     name = action_received.split(" ")[1];
                     length = command.length() + name.length();
                     content = action_received.substring(length+2);
@@ -149,16 +169,27 @@ public class Main {
                     name = action_received.split(" ")[1];
                     System.out.println(general.showFileProperties(name));
                     break;
+<<<<<<< HEAD
 
                     
                     
                     
                 case "VIEW": //file name
+=======
+                
+                case "VIEW": //file name, it needs the extension (example.txt)
+>>>>>>> f09fd9fdbcb9aa6e2b4987f4b109fb868bc48dca
                     name = action_received.split(" ")[1];
+                    ret = general.display_file_content(name);
+                    switch (ret)
+                    {
+                        case 0:
+                            System.out.println("File not found");
+                            break;
+                    }
                     break;
 
                 case "CPY": //use flags to choose
-
                     switch(action_received.split(" ")[2]){
                         
                         case "-vv": // virtual to virtual path
