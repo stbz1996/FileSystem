@@ -227,25 +227,38 @@ public class Directory
     }
     
 
-    public String getDirectoryTree()
+    
+    
+    
+    
+    public String getDirectoryTree(int sublevel)
     {
-        String content = " - " + getDirectory_name() + "\n";
-        
+        String content = "";
         for(Directory directory : directories)
         {
-            
-            content += " - " + directory.getDirectoryTree();
+            content += atachTabLevel(sublevel) + "|__" + directory.getDirectory_name() + "\n";
+            content += directory.getDirectoryTree(sublevel + 1);
         }
-        /*
-        content += "\nFiles:";
         
         for(File file : files){
-            content += "\n\t" + file.getName();
+            content += atachTabLevel(sublevel) + "|__" + file.getName()+ "."+ file.getExtension() + "\n";
+            
         }
-        */
-        return content + "\n";
+        
+        return  content;
+    }
+    private String atachTabLevel(int sublevel){
+        String tabs = "";
+        
+        for(int i = 0 ; i < sublevel; i++){
+            tabs+= "   ";
+        }
+            
+        return tabs;
     }
     
+    
+
     public String get_path(){
         String path = "";
         Directory directory = this;
