@@ -331,6 +331,6 @@ public class GeneralFileManager
 
     public String display_Three()
     {
-        return current_filemanager.display_Three();    
+        return current_filemanager.getInitial_directory().getDirectory_name() +"\n"+ current_filemanager.display_Three(0);    
     }
 }

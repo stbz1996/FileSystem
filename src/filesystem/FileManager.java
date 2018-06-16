@@ -148,9 +148,9 @@ public class FileManager
     }
     
     
-    public String display_Three()
+    public String display_Three(int sublevel)
     {
-        return initial_directory.getDirectoryTree();
+        return initial_directory.getDirectoryTree(sublevel);
     }
     
 }
