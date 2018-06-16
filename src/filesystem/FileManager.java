@@ -153,4 +153,8 @@ public class FileManager
         return initial_directory.getDirectoryTree();
     }
     
+    public String list_files_by_name(String name)
+    {
+        return initial_directory.list_files_by_name(name);
+    }
 }

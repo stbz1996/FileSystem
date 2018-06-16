@@ -209,10 +209,17 @@ public class Main {
                     
                     
                     
+                    
                 case "FIND": // file or directory name
                     name = action_received.split(" ")[1];
+                    System.out.println(general.list_files_by_name(name));
                     break;
 
+                    
+                    
+                    
+                    
+                    
                 default:
                     System.out.println("The command typed doesn't exist, type another one");
 

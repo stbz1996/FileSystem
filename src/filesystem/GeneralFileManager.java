@@ -333,4 +333,11 @@ public class GeneralFileManager
     {
         return current_filemanager.display_Three();    
     }
+    
+    
+    
+    public String list_files_by_name(String name)
+    {
+        return current_filemanager.list_files_by_name(name);
+    }
 }

@@ -8,6 +8,7 @@ public class Directory
     private Directory directory_father;
     private ArrayList<Directory> directories;
     private ArrayList<File> files;
+    
 
     public Directory(String directory_name, Directory directory_father) 
     {
@@ -201,7 +202,13 @@ public class Directory
     }
     
     
-    
+    /*
+    This function shows the file propeties
+    Parameters
+        String name: It is the name of the file
+    Returns
+        String with the properties of the file 
+    */
     public String showFileProperties(String name)
     {
         String properties = "";
@@ -240,5 +247,30 @@ public class Directory
         }
         */
         return content + "\n";
+    }
+    
+    
+    
+    
+    
+    
+    public String list_files_by_name(String name)
+    {
+        String content = "";
+        if (directory_name.equals(name)) {
+            // Falta tomar el path del directorio 
+             content += directory_name + "\n";
+        }
+       
+        for(Directory directory : directories){
+            content += directory.list_files_by_name(name);
+        }
+        
+        for(File file : files){
+            if(file.getName().equals(name)){
+                content += file.getPath() + "." + file.getExtension() + "\n";
+            }
+        }
+        return content;
     }
 }
