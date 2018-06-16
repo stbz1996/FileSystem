@@ -8,6 +8,7 @@ public class Directory
     private Directory directory_father;
     private ArrayList<Directory> directories;
     private ArrayList<File> files;
+    
 
     public Directory(String directory_name, Directory directory_father) 
     {
@@ -73,6 +74,7 @@ public class Directory
         return null;
     }
     
+    
     public boolean search_directory(String name)
     {
         for (Directory directory : directories) 
@@ -85,6 +87,7 @@ public class Directory
         return false;
     }
     
+    
     public boolean search_file(String name)
     {
         for (File file : files) 
@@ -96,6 +99,7 @@ public class Directory
         }
         return false;
     }
+    
     
     public void setDirectory_name(String directory_name) 
     {
@@ -120,10 +124,12 @@ public class Directory
         return current_file;
     }
     
+    
     public Directory getDirectory_father()
     {
         return directory_father;
     }
+    
     
     public Directory getDirectory(String name){
         
@@ -137,6 +143,7 @@ public class Directory
         return null;
         
     }
+    
     
     public File getFile(String name)
     {
@@ -169,13 +176,7 @@ public class Directory
         return content + "\n";
     }
     
-    
-    
-    
-    
-    
-    
-    
+
     /*
     This function changed the file content and size
     Paramethers:
@@ -201,7 +202,13 @@ public class Directory
     }
     
     
-    
+    /*
+    This function shows the file propeties
+    Parameters
+        String name: It is the name of the file
+    Returns
+        String with the properties of the file 
+    */
     public String showFileProperties(String name)
     {
         String properties = "";
@@ -219,6 +226,7 @@ public class Directory
         return properties;
     }
     
+
     
     
     
@@ -239,7 +247,6 @@ public class Directory
         
         return  content;
     }
-    
     private String atachTabLevel(int sublevel){
         String tabs = "";
         
@@ -251,4 +258,34 @@ public class Directory
     }
     
     
+
+    public String get_path(){
+        String path = "";
+        Directory directory = this;
+        
+        while(directory.getDirectory_father() != null)
+        {
+            path = directory.getDirectory_name() + "\\" + path;
+            directory = directory.getDirectory_father();
+        }
+        return path;
+    }
+
+    public String list_files_by_name(String name)
+    {
+        String content = "";
+        if (directory_name.equals(name)) {
+            // Falta tomar el path del directorio 
+            content += get_path() + "\n";
+        }
+        for(Directory directory : directories){
+            content += directory.list_files_by_name(name);
+        }
+        for(File file : files){
+            if(file.getName().equals(name)){
+                content += file.getPath() + "\n";
+            }
+        }
+        return content;
+    }
 }
