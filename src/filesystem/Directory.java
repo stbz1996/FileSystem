@@ -246,22 +246,31 @@ public class Directory
         return content + "\n";
     }
     
+    public String get_path(){
+        String path = "";
+        Directory directory = this;
+        
+        while(directory.getDirectory_father() != null)
+        {
+            path = directory.getDirectory_name() + "\\" + path;
+            directory = directory.getDirectory_father();
+        }
+        return path;
+    }
 
     public String list_files_by_name(String name)
     {
         String content = "";
         if (directory_name.equals(name)) {
             // Falta tomar el path del directorio 
-             content += directory_name + "\n";
+            content += get_path() + "\n";
         }
-       
         for(Directory directory : directories){
             content += directory.list_files_by_name(name);
         }
-        
         for(File file : files){
             if(file.getName().equals(name)){
-                content += file.getPath() + "." + file.getExtension() + "\n";
+                content += file.getPath() + "\n";
             }
         }
         return content;

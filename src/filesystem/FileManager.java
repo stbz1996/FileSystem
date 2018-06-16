@@ -156,6 +156,6 @@ public class FileManager
     
     public String list_files_by_name(String name)
     {
-        return initial_directory.list_files_by_name(name);
+        return this.initial_directory.getDirectory_name() + ":\\" + initial_directory.list_files_by_name(name);
     }
 }
