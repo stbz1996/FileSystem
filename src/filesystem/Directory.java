@@ -74,6 +74,7 @@ public class Directory
         return null;
     }
     
+    
     public boolean search_directory(String name)
     {
         for (Directory directory : directories) 
@@ -86,6 +87,7 @@ public class Directory
         return false;
     }
     
+    
     public boolean search_file(String name)
     {
         for (File file : files) 
@@ -97,6 +99,7 @@ public class Directory
         }
         return false;
     }
+    
     
     public void setDirectory_name(String directory_name) 
     {
@@ -121,10 +124,12 @@ public class Directory
         return current_file;
     }
     
+    
     public Directory getDirectory_father()
     {
         return directory_father;
     }
+    
     
     public Directory getDirectory(String name){
         
@@ -138,6 +143,7 @@ public class Directory
         return null;
         
     }
+    
     
     public File getFile(String name)
     {
@@ -170,13 +176,7 @@ public class Directory
         return content + "\n";
     }
     
-    
-    
-    
-    
-    
-    
-    
+
     /*
     This function changed the file content and size
     Paramethers:
@@ -226,10 +226,7 @@ public class Directory
         return properties;
     }
     
-    
-    
-    
-    
+
     public String getDirectoryTree()
     {
         String content = " - " + getDirectory_name() + "\n";
@@ -249,11 +246,7 @@ public class Directory
         return content + "\n";
     }
     
-    
-    
-    
-    
-    
+
     public String list_files_by_name(String name)
     {
         String content = "";

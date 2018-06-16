@@ -27,6 +27,7 @@ public class File
         this.size_kb = size_kb;
     }
 
+    
     File(String outtxt) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

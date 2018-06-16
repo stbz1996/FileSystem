@@ -27,6 +27,7 @@ public class FileManager
         this.virtual_disk = getInitial_disk();
     }
     
+    
     public ArrayList<Boolean> getInitial_disk() throws FileNotFoundException, IOException {
         ArrayList<Boolean> virtual_disk = new ArrayList<>();
         FileOutputStream file_virtual_disk = new FileOutputStream("virtual_disk.txt");
@@ -126,8 +127,8 @@ public class FileManager
     }
     
     
-    
-    public boolean changeDirectory(String path){    
+    public boolean changeDirectory(String path)
+    {    
         Directory result = initial_directory;
         Directory temp;
        

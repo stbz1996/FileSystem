@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+
 public class GeneralFileManager 
 {    
     private ArrayList<FileManager> file_managers = new ArrayList<>(); 
@@ -105,6 +106,7 @@ public class GeneralFileManager
         }
     }
      
+    
      /*
     This function displays the file content
     Paramethers:
@@ -126,6 +128,7 @@ public class GeneralFileManager
         }
     }
   
+    
     /*
     This function add a new file in the current directory 
     Paramethers:
@@ -212,10 +215,12 @@ public class GeneralFileManager
         return virtual_disk;
     }
 
+    
     /*
     This function writes in the virtual disk the arraylist content
      */
-    public void write_virtual_disk(ArrayList<String> virtual_disk) throws IOException {
+    public void write_virtual_disk(ArrayList<String> virtual_disk) throws IOException 
+    {
         FileOutputStream file_virtual_disk = new FileOutputStream("virtual_disk.txt");
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(file_virtual_disk));
 
@@ -226,6 +231,7 @@ public class GeneralFileManager
 
         writer.close();
     }
+    
     
     /*
     This function moves a file/directory to another directory
@@ -273,6 +279,7 @@ public class GeneralFileManager
         return current_filemanager.getPath(current_filemanager.getCurrent_directory());
     }
     
+    
     /*
     This function change the current directory of the file sistem. 
     Paramethers:
@@ -291,13 +298,7 @@ public class GeneralFileManager
     {
         return current_filemanager.display_files_and_directories();    
     }
-    
-    
-    
-    
-    
-    
-    
+        
     
     /*
     This function changed the file content and size
