@@ -59,74 +59,94 @@ public class Main {
             switch (command)
             {
                 case "CRT": // num sectors, sector size, name
-                    num_sectors = Integer.parseInt(action_received.split(" ")[1]);
-                    sector_size = Integer.parseInt(action_received.split(" ")[2]);
-                    name = action_received.split(" ")[3];
-                    ret = general.addFileSystem(num_sectors, sector_size, name);
-                    if (ret == 0) {
-                        System.out.println("#################################");
-                        System.out.println("## There is a virtual disk now ##");
-                        System.out.println("#################################");
+                    try{
+                        num_sectors = Integer.parseInt(action_received.split(" ")[1]);
+                        sector_size = Integer.parseInt(action_received.split(" ")[2]);
+                        name = action_received.split(" ")[3];
+                        ret = general.addFileSystem(num_sectors, sector_size, name);
+                        if (ret == 0) {
+                            System.out.println("#################################");
+                            System.out.println("## There is a virtual disk now ##");
+                            System.out.println("#################################");
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("Incorrect parameters for CRT");
                     }
                     break;
                     
                     
                 case "FLE": // name, extension, content
-                    name = action_received.split(" ")[1];
-                    extension = action_received.split(" ")[2];
-                    length = command.length() + name.length() + extension.length();
-                    content = action_received.substring(length+3);
-                    ret = general.add_file(content, name, extension, length);
-                    switch (ret)
-                    {
-                        case 0:
-                            System.out.println("###############################################################################");
-                            System.out.println("## There's already a file with the same name. Do you want to replace it? Y/N ##");
-                            System.out.println("###############################################################################");
-                            String action = scanner.nextLine();
-                            if(action.equals("Y"))
-                            {
-                                System.out.println("Caso 2 pendiente...");
-                               //HAY QUE BORRAR EL ARCHIVO DEL FILE SYSTEM Y DEL ARCHIVO (DISCO VIRTUAL) Y CREARLO DE NUEVO
-                               //FALTA ESO!
-                            } 
-                            break;
-                            
-                        case 1:
-                            System.out.println("############################################");
-                            System.out.println("## There isn't enough space for this file ##");
-                            System.out.println("############################################");
-                            break;
+                    try{
+                        name = action_received.split(" ")[1];
+                        extension = action_received.split(" ")[2];
+                        length = command.length() + name.length() + extension.length();
+                        content = action_received.substring(length+3);
+                        ret = general.add_file(content, name, extension, length);
+                        switch (ret)
+                        {
+                            case 0:
+                                System.out.println("###############################################################################");
+                                System.out.println("## There's already a file with the same name. Do you want to replace it? Y/N ##");
+                                System.out.println("###############################################################################");
+                                String action = scanner.nextLine();
+                                if(action.equals("Y"))
+                                {
+                                    System.out.println("Caso 2 pendiente...");
+                                   //HAY QUE BORRAR EL ARCHIVO DEL FILE SYSTEM Y DEL ARCHIVO (DISCO VIRTUAL) Y CREARLO DE NUEVO
+                                   //FALTA ESO!
+                                } 
+                                break;
+
+                            case 1:
+                                System.out.println("############################################");
+                                System.out.println("## There isn't enough space for this file ##");
+                                System.out.println("############################################");
+                                break;
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("Incorrect parameters for FLE");
                     }
                     break;
  
                     
                 case "MKDIR": //  directory name
-                    name = action_received.split(" ")[1];
-                    ret = general.add_directory(name);
-                    switch (ret){
-                        case 0:
-                            System.out.println("####################################################################################");
-                            System.out.println("## There's already a directory with the same name. Do you want to replace it? Y/N ##");
-                            System.out.println("####################################################################################");
-                            String action = scanner.nextLine();
-                            if(action.equals("Y"))
-                            {
-                                System.out.println("Caso 1 pendiente...");
-                                // Borramos el archivo y creamos otro nuevo 
-                                // FALTA HACERLO
-                            }
-                            break;
+                    try{
+                        name = action_received.split(" ")[1];
+                        ret = general.add_directory(name);
+                        switch (ret){
+                            case 0:
+                                System.out.println("####################################################################################");
+                                System.out.println("## There's already a directory with the same name. Do you want to replace it? Y/N ##");
+                                System.out.println("####################################################################################");
+                                String action = scanner.nextLine();
+                                if(action.equals("Y"))
+                                {
+                                    System.out.println("Caso 1 pendiente...");
+                                    // Borramos el archivo y creamos otro nuevo 
+                                    // FALTA HACERLO
+                                }
+                                break;
+                        }
+                    }
+                    catch(Exception e){
+                        System.out.println("Incorrect parameters for MKDIR");
                     }
                     break;
 
                     
                 case "CHDIR": //path
-                    path = action_received.split(" ")[1];
-                    flag = general.changeDirectory(path);
-                    if(flag == false)
-                    {
-                        System.out.println("The directory joined does not exist.\n");
+                    try{
+                        path = action_received.split(" ")[1];
+                        flag = general.changeDirectory(path);
+                        if(flag == false)
+                        {
+                            System.out.println("The directory joined does not exist.\n");
+                        }
+                    }
+                    catch(Exception e){
+                         System.out.println("Incorrect parameters for CHDIR");
                     }
                     break;
 
