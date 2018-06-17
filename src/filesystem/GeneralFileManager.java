@@ -158,7 +158,6 @@ public class GeneralFileManager
             {
                 String path = getActual_path() + "\\" + name + "." + extension + " Content: " + content + " Size: " + size_kb;
                 ArrayList<Integer> sectors = write_in_virtual_disk(path, (int) Math.ceil(cant_sectors));
-                System.out.println("Sectores: " + sectors);
                 File file = current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
                 path = path + " Creation Date: " + file.getCreation_date() + " Modification Date: " + file.getModification_date();
                 modify_file(file, path);
@@ -281,15 +280,11 @@ public class GeneralFileManager
     public void modify_file(File file, String content) throws IOException
     {
         ArrayList<String> virtual_disk = read_virtual_disk();
-        System.out.println("leyo disco");
-        System.out.println(file.getSectors().size());
         for(Integer index : file.getSectors())
         {
             virtual_disk.set(index, content);
-            System.out.println("cambio fechas");
         }
         write_virtual_disk(virtual_disk);
-        System.out.println("escribio disco");
     }
     
     
@@ -329,10 +324,20 @@ public class GeneralFileManager
         True: Everithing is ok
         false: Something is wrong 
     */
-    public boolean setFileContent(String fileName, String content, int sizeKB)
+    public boolean setFileContent(String fileName, String content, int sizeKB) throws IOException
     {
-        boolean flag = current_filemanager.getCurrent_directory().setFileContent(fileName, content, sizeKB);
-        return flag;
+        File file = current_filemanager.getCurrent_directory().setFileContent(fileName, content, sizeKB);
+        if(file != null)
+        {
+            String path = getActual_path() + "\\" + file.getName() + "." + file.getExtension() + " Content: " + file.getContent() 
+                    + " Size: " + file.getSize_kb() + " Creation Date: " + file.getCreation_date() + " Modification Date: " + file.getModification_date();;
+            modify_file(file, path);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     
@@ -361,6 +366,139 @@ public class GeneralFileManager
         return current_filemanager.list_files_by_name(name);
     }
     
+    
+    /*
+    This function copies a file inte virtual disk to a another path in the virtual disk
+    Paramethers:
+        String name: It is the name of the file
+        String path: It is the new path
+    Returns:
+        Returns:
+        0: Means "There's already a file with the same name."
+        1: Means "There isn't enough space for this file"
+        2: Means "File created successfully"
+        3: Means "File not found"
+        4: Means "The directory joined does not exist"
+     */
+    public int copy_file_vv(String file, String path) throws IOException {
+        String current_path = getActual_path();
+        if (!search_file(file)) {
+            System.out.println("3");
+            return 3;
+        } else if (!changeDirectory(path)) {
+            System.out.println("4");
+            return 4;
+        } else {
+            changeDirectory(current_path); //come back to the current path to get file
+            File copy_file = current_filemanager.getCurrent_directory().getFile(file);
+            changeDirectory(path);
+            return add_file(copy_file.getContent(), copy_file.getName(), copy_file.getExtension(), copy_file.getSize_kb()); //returns 0, 1 or 2
+        }
+    }
+    
+    /*
+    This function copies a file in the real disk to a another path in the virtual disk
+    Paramethers:
+        String real_path: It is the file path in the real disk
+        String virtual_path: It is the path where the file is going to be copied in the virtual disk
+    Returns:
+        Returns:
+        0: Means "There's already a file with the same name."
+        1: Means "There isn't enough space for this file"
+        2: Means "File created successfully"
+        3: Means: "Path not found."
+     */
+    
+    public int copy_file_rv(String real_path, String virtual_path) throws IOException
+    {
+        String file_content = read_file(real_path);
+        if(!file_content.equals("") && changeDirectory(virtual_path))
+        {
+            String[] file_name = real_path.split("\\\\");
+            String name = file_name[file_name.length-1].split("\\.")[0];
+            String extension = file_name[file_name.length-1].split("\\.")[1];
+            int size_kb = file_content.length() + name.length() + extension.length();
+            return add_file(file_content, name, extension, size_kb);
+        }
+        else
+        {
+           return 3; 
+        }
+    }
+    
+    
+    /*
+    This function copies a file in the real disk to a another path in the virtual disk
+    Paramethers:
+        String real_path: It is the file path in the real disk
+        String virtual_path: It is the path where the file is going to be copied in the virtual disk
+    Returns:
+        Returns:
+        0: Means "File created successfully"
+        1: Means: "File not found."
+     */
+    
+    public int copy_file_vr(String file_name, String real_path) throws IOException
+    {
+        if(search_file(file_name))
+        {
+           File file = current_filemanager.getCurrent_directory().getFile(file_name);
+           write_file(real_path, file.getContent(), file.getName());
+           return 0;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    
+    
+    /*
+    This function read a file from the real disk
+    Paramethers:
+        String path: It is the file path
+    Returns:
+        Returns:
+        ArrayList<String>: Contains the file content
+     */
+    public String read_file(String path)
+    {
+        String file_content = "";
+
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(path));
+            String line = reader.readLine();
+            while (line != null) {
+                file_content = file_content + " " + line;
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("File not found.");
+        }
+        return file_content;
+    }
+    
+    
+    public void write_file(String path, String content, String name) throws FileNotFoundException, IOException
+    {
+        String real_path = path + "\\" + name + ".txt";
+        
+        try
+        {
+            FileOutputStream file_real_disk = new FileOutputStream(real_path);
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(file_real_disk));
+            writer.write(content);
+            writer.newLine();
+            writer.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println("Path not found");
+        }
+        
+    }
     public boolean remove_file(String name) throws IOException{
         ArrayList<Integer> index = current_filemanager.remove_file(name);
         ArrayList<String> virtual_disk = read_virtual_disk();
@@ -376,6 +514,7 @@ public class GeneralFileManager
         }
         
     }
+    
     
     public boolean remove_directory(String name) throws IOException{
         ArrayList<Integer> index = current_filemanager.remove_directory(name);

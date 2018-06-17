@@ -2,6 +2,7 @@ package filesystem;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -103,6 +104,10 @@ public class Main {
                                 System.out.println("## There isn't enough space for this file ##");
                                 System.out.println("############################################");
                                 break;
+                                
+                            case 2:
+                                System.out.println("File created successfully.");
+                                break;
                         }
                     }
                     catch(Exception e){
@@ -157,51 +162,145 @@ public class Main {
                     
 
                  case "MFLE": //file name, new content
-                    name = action_received.split(" ")[1];
-                    length = command.length() + name.length();
-                    content = action_received.substring(length+2);
-                    flag = general.setFileContent(name, content, length);
-                    if (flag == false) {
-                        System.out.println("The file does not exist");
-                    }
-                    break;
+                     try
+                     {
+                        name = action_received.split(" ")[1];
+                        length = command.length() + name.length();
+                        content = action_received.substring(length+2);
+                        flag = general.setFileContent(name, content, length);
+                        if (flag == false) {
+                            System.out.println("The file does not exist");
+                        }
+                     }
+                     catch(Exception e)
+                     {
+                         System.out.println("Incorrect parameters for MFLE");
+                     }
+                     break;
 
                     
                 case "PPT": //no parameters, display file properties
-                    name = action_received.split(" ")[1];
-                    System.out.println(general.showFileProperties(name));
+                    try
+                    {
+                      name = action_received.split(" ")[1];
+                      System.out.println(general.showFileProperties(name));                      
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Incorrect parameters for PPT");
+                    }
                     break;
 
                 
                 case "VIEW": //file name, it needs the extension (example.txt)
-                    name = action_received.split(" ")[1];
-                    ret = general.display_file_content(name);
-                    switch (ret)
+                    try
                     {
-                        case 0:
-                            System.out.println("File not found");
-                            break;
+                        name = action_received.split(" ")[1];
+                        ret = general.display_file_content(name);
+                        switch (ret)
+                        {
+                            case 0:
+                                System.out.println("File not found");
+                                break;
+                        } 
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Incorrect parameters for VIEW");
                     }
                     break;
 
                     
                 case "CPY": //use flags to choose
-                    switch(action_received.split(" ")[2]){
-                        
+                    switch(action_received.split(" ")[1]){
                         case "-vv": // virtual to virtual path
-                            name = action_received.split(" ")[3];
-                            new_path = action_received.split(" ")[4];
+                            try
+                            {
+                               System.out.println("entre -vv");
+                                name = action_received.split(" ")[2];
+                                new_path = action_received.split(" ")[3];
+                                ret = general.copy_file_vv(name, new_path);
+                                switch (ret) {
+                                    case 0:
+                                        System.out.println("There's already a file with the same name.");
+                                        break;
+                                    case 1:
+                                        System.out.println("There isn't enough space for this file");
+                                        break;
+                                    case 2:
+                                        System.out.println("File created successfully");
+                                        break;
+                                    case 3:
+                                        System.out.println("File not found");
+                                        break;
+                                    case 4:
+                                        System.out.println("The directory joined does not exist");
+                                        break;
+                                }
+                                break; 
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("Incorrect parameters for COPY -vv");
+                            }
                             break;
 
                         case "-rv": //real to virtual path
-                            path = action_received.split(" ")[3];
-                            new_path = action_received.split(" ")[4];
+                            try
+                            {
+                                path = action_received.split(" ")[2];
+                                new_path = action_received.split(" ")[3];
+                                ret = general.copy_file_rv(path, new_path);
+                                switch (ret) {
+                                    case 0:
+                                        System.out.println("There's already a file with the same name.");
+                                        break;
+
+                                    case 1:
+                                        System.out.println("There isn't enough space for this file.");
+                                        break;
+
+                                    case 2:
+                                        System.out.println("File created successfully.");
+                                        break;
+
+                                    case 3:
+                                        System.out.println("Path not found");
+                                        break;
+                                }
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("Incorrect parameters for COPY -rv");
+                            }
+
                             break;
 
                         case "-vr": //virtual to real path
-                            name = action_received.split(" ")[3];
-                            new_path = action_received.split(" ")[4];
+                            try
+                            {
+                                name = action_received.split(" ")[2];
+                                new_path = action_received.split(" ")[3]; 
+                                ret = general.copy_file_vr(name, new_path);
+                                switch (ret) {
+                                    case 0:
+                                        System.out.println("File created successfully.");
+                                        break;
+
+                                    case 1:
+                                        System.out.println("File not found.");
+                                        break;
+                                }
+                                    
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("Incorrect parameters for COPY -vr");
+                            }
                             break;
+                            
+                        default:
+                            System.out.println("Please use the flags -vv, -rv or -vr");
                     }
                     break;
 

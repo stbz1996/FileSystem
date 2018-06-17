@@ -178,10 +178,10 @@ public class Directory
         String content: It is the new content of the file.
         int sizekb: It is the size in KB of the nex content
     Returns:
-        True: Everithing is ok
-        false: Something is wrong 
+        File: Everithing is ok
+        null: Something is wrong 
     */
-    public boolean setFileContent(String name, String content, int sizekb)
+    public File setFileContent(String name, String content, int sizekb)
     {
         for (File file : files) 
         {
@@ -189,10 +189,11 @@ public class Directory
             {
                 file.setContent(content);
                 file.setSize_kb(sizekb);
-                return true;
+                file.setModification_date();
+                return file;
             }
         }
-        return false;
+        return null;
     }
     
     

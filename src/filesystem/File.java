@@ -36,7 +36,7 @@ public class File
     public String getActual_date()
     {
         Date now = new Date();
-        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formateador = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         return formateador.format(now);   
     }
     
@@ -62,9 +62,9 @@ public class File
     }
 
     
-    public void setModification_date(String modification_date) 
+    public void setModification_date() 
     {
-        this.modification_date = modification_date;
+        this.modification_date = getActual_date();
     }
 
     
