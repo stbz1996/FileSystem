@@ -156,9 +156,11 @@ public class GeneralFileManager
             }
             else
             {
-                String path = getActual_path() + "\\" + name + "." + extension + " Content: " + content + " Size:" + size_kb;
+                String path = getActual_path() + "\\" + name + "." + extension + " Content: " + content + " Size: " + size_kb;
                 ArrayList<Integer> sectors = write_in_virtual_disk(path, (int) Math.ceil(cant_sectors));
                 File file = current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
+                path = path + " Creation Date: " + file.getCreation_date() + " Modification Date: " + file.getModification_date();
+                modify_file(file, path);
                 current_filemanager.setFree_sectors(current_filemanager.getFree_sectors() - (int) Math.ceil(cant_sectors));
                 return 2;
             }
@@ -185,6 +187,7 @@ public class GeneralFileManager
                 file_virtual_disk.set(index, path);
                 virtual_disk.set(index, Boolean.TRUE);
                 cant_sectors--;
+                sectors.add(index);
             }
             index++;
         }
@@ -271,6 +274,21 @@ public class GeneralFileManager
         {
             return 2;
         }
+    }
+    
+    
+    public void modify_file(File file, String content) throws IOException
+    {
+        ArrayList<String> virtual_disk = read_virtual_disk();
+        System.out.println("leyo disco");
+        System.out.println(file.getSectors().size());
+        for(Integer index : file.getSectors())
+        {
+            virtual_disk.set(index, content);
+            System.out.println("cambio fechas");
+        }
+        write_virtual_disk(virtual_disk);
+        System.out.println("escribio disco");
     }
     
     

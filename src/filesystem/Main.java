@@ -215,32 +215,16 @@ public class Main {
                     name = action_received.split(" ")[1];   
                     break;
 
-                    
-                    
-                    
-                    
-                 
                 case "TREE": //no parameters, display directory tree
                     System.out.println(general.display_Three());
                     break;
 
-                    
-                    
-                    
-                    
-                    
-                    
-                case "FIND": // file or directory name
+                 case "FIND": // file or directory name
                     name = action_received.split(" ")[1];
                     System.out.println(general.list_files_by_name(name));
                     break;
 
-                    
-                    
-                    
-                    
-                    
-                default:
+               default:
                     System.out.println("The command typed doesn't exist, type another one");
 
             } // end switch
