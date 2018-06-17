@@ -307,6 +307,13 @@ public class GeneralFileManager
         return current_filemanager.changeDirectory(path);
     }
     
+    /*
+    Display fiels and directories at current directory
+    Parameter:
+        does not have
+    Returns:
+        String with el directory content
+    */
     
     public String display_files_and_directories()
     {
@@ -352,8 +359,14 @@ public class GeneralFileManager
     {
         return current_filemanager.getCurrent_directory().showFileProperties(name); 
     }
-
-
+    
+    /*
+    Display_three, show the directory and files structure
+    Parameter:
+        does no have
+    Returns: 
+        String with the complete virtual disk structure
+    */
     public String display_Three()
     {
         return current_filemanager.getInitial_directory().getDirectory_name() +"\n"+ current_filemanager.display_Three(0);    
@@ -500,6 +513,14 @@ public class GeneralFileManager
         
     }
     
+    /*
+    Remove_n_files 
+    Parameter: 
+        string with all files names to remove
+    Returns:
+        string with all removes failed
+    */
+    
     
     public String remove_n_file(String name) throws IOException{
         String[] files = name.split(" ");
@@ -512,6 +533,15 @@ public class GeneralFileManager
         return result;
         
     }
+    
+    /*
+    Remove_files
+    Parameter:
+        string with a file name
+    Return:
+        true: if removed
+        false: if failed
+    */
     
     public boolean remove_file(String name) throws IOException{
         ArrayList<Integer> index = current_filemanager.remove_file(name);
@@ -529,7 +559,14 @@ public class GeneralFileManager
         
     }
     
-    
+    /*
+    Remove_directory
+    Parameter:
+        string with a directory name
+    Return: 
+        true: if removed
+        false: if failed
+    */
     public boolean remove_directory(String name) throws IOException{
         ArrayList<Integer> index = current_filemanager.remove_directory(name);
         ArrayList<String> virtual_disk = read_virtual_disk();
