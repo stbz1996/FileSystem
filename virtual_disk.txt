@@ -1,10 +1,10 @@
-C:\\archivo1.txt Content: prueba de remove Size: 14 Creation Date: 17-06-2018 Modification Date: 17-06-2018
-C:\\archivo2.txt Content: prueba de remove Size: 14 Creation Date: 17-06-2018 Modification Date: 17-06-2018
-C:\\archivo3.txt Content: prueba de remove Size: 14 Creation Date: 17-06-2018 Modification Date: 17-06-2018
-C:\dir\\archivo1.txt Content: prueba de remove Size: 14 Creation Date: 17-06-2018 Modification Date: 17-06-2018
 -
 -
-C:\\archivo4.txt Content: prueba de remove Size: 14 Creation Date: 17-06-2018 Modification Date: 17-06-2018
+C:\\c.txt Content: multiple eliminacion Size: 7 Creation Date: 17-06-2018 Modification Date: 17-06-2018
+C:\\d.txt Content: multiple eliminacion Size: 7 Creation Date: 17-06-2018 Modification Date: 17-06-2018
+-
+-
+-
 -
 -
 -

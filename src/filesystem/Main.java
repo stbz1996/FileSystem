@@ -212,29 +212,37 @@ public class Main {
                     break;
 
                 case "REM": // file or directory name
-                    name = action_received.split(" ")[1];
-                    
-                    if(action_received.contains(".")){
-                        if(general.remove_file(name.split("\\.")[0])){
-                            System.out.println("File removed succesfully\n");
+                    if(action_received.contains("-n")){     //Remove n files
+                        String result = general.remove_n_file(action_received.split(" ", 3)[2]);
+                        if(result == ""){
+                            System.out.println("Files removed succesfully");
                         }else{
-                            System.out.println("The file was not found");
+                            System.out.println("Cannot find the following files: \n" + result);
                         }
                     }else{
-                        if(general.remove_directory(name)){
-                            System.out.println("Directory removed succesfully\n");
+                        name = action_received.split(" ")[1];
+
+                        if(action_received.contains(".")){
+                            if(general.remove_file(name.split("\\.")[0])){
+                                System.out.println("File removed successfully\n");
+                            }else{
+                                System.out.println("The file was not found");
+                            }
                         }else{
-                            System.out.println("The directory was not found");
+                            if(general.remove_directory(name)){
+                                System.out.println("Directory removed succesfully\n");
+                            }else{
+                                System.out.println("The directory was not found");
+                            }
                         }
                     }
-                    
                     break;
 
                 case "TREE": //no parameters, display directory tree
                     System.out.println(general.display_Three());
                     break;
 
-                 case "FIND": // file or directory name
+                case "FIND": // file or directory name
                     name = action_received.split(" ")[1];
                     System.out.println(general.list_files_by_name(name));
                     break;

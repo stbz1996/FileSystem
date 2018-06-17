@@ -361,6 +361,18 @@ public class GeneralFileManager
         return current_filemanager.list_files_by_name(name);
     }
     
+    public String remove_n_file(String name) throws IOException{
+        String[] files = name.split(" ");
+        String result= "";
+        for(int i = 0; i < files.length; i++){
+            if(!remove_file(files[i].split("\\.")[0])){
+                result += "\t" +files[i] + "\n";
+            }
+        }
+        return result;
+        
+    }
+    
     public boolean remove_file(String name) throws IOException{
         ArrayList<Integer> index = current_filemanager.remove_file(name);
         ArrayList<String> virtual_disk = read_virtual_disk();
