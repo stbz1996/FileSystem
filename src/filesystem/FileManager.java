@@ -131,7 +131,13 @@ public class FileManager
     {    
         Directory result = initial_directory;
         Directory temp;
-       
+        String root = result.getDirectory_name()+":\\\\";
+        
+        if(path.length() <= root.length() && path.contains(result.getDirectory_name())){
+            current_directory = result;
+            return true;
+        }
+        
         path = path.replace("\\\\", ",");
         path = path.replaceFirst(path.split(":")[0]+":,", "");
         
@@ -157,5 +163,19 @@ public class FileManager
     public String list_files_by_name(String name)
     {
         return this.initial_directory.getDirectory_name() + ":\\" + initial_directory.list_files_by_name(name);
+    }
+    
+    public ArrayList<Integer> remove_file(String name){
+        return current_directory.remove_file(name);
+    }
+    
+    public ArrayList<Integer> remove_directory(String name){
+        Directory temp = current_directory.remove_directory(name);
+        
+        if(temp != null){
+            return temp.clean_directory();
+        }else{
+            return null; 
+        }
     }
 }

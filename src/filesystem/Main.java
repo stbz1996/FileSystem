@@ -212,7 +212,22 @@ public class Main {
                     break;
 
                 case "REM": // file or directory name
-                    name = action_received.split(" ")[1];   
+                    name = action_received.split(" ")[1];
+                    
+                    if(action_received.contains(".")){
+                        if(general.remove_file(name.split("\\.")[0])){
+                            System.out.println("File removed succesfully\n");
+                        }else{
+                            System.out.println("The file was not found");
+                        }
+                    }else{
+                        if(general.remove_directory(name)){
+                            System.out.println("Directory removed succesfully\n");
+                        }else{
+                            System.out.println("The directory was not found");
+                        }
+                    }
+                    
                     break;
 
                     

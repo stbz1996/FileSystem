@@ -158,6 +158,7 @@ public class GeneralFileManager
             {
                 String path = getActual_path() + "\\" + name + "." + extension + " Content: " + content + " Size:" + size_kb;
                 ArrayList<Integer> sectors = write_in_virtual_disk(path, (int) Math.ceil(cant_sectors));
+                System.out.println("Sectores: " + sectors);
                 File file = current_filemanager.getCurrent_directory().create_file(content, name, extension, sectors, path, size_kb);
                 current_filemanager.setFree_sectors(current_filemanager.getFree_sectors() - (int) Math.ceil(cant_sectors));
                 return 2;
@@ -340,5 +341,35 @@ public class GeneralFileManager
     public String list_files_by_name(String name)
     {
         return current_filemanager.list_files_by_name(name);
+    }
+    
+    public boolean remove_file(String name) throws IOException{
+        ArrayList<Integer> index = current_filemanager.remove_file(name);
+        ArrayList<String> virtual_disk = read_virtual_disk();
+        if(index != null){
+            for(int i : index){
+                virtual_disk.add(i,"-");
+            }
+            write_virtual_disk(virtual_disk);
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    
+    public boolean remove_directory(String name) throws IOException{
+        ArrayList<Integer> index = current_filemanager.remove_directory(name);
+        ArrayList<String> virtual_disk = read_virtual_disk();
+        if(index != null){
+            for(int i : index){
+                virtual_disk.add(i,"-");
+            }
+            write_virtual_disk(virtual_disk);
+            return true;
+        }else{
+            return false;
+        }
+        
     }
 }

@@ -51,13 +51,7 @@ public class Directory
     {
         
     }
-    
-    
-    public void remove_file()
-    {
-        
-    }
-    
+          
     
     public Directory remove_directory(String name)
     {
@@ -226,10 +220,6 @@ public class Directory
         return properties;
     }
     
-
-    
-    
-    
     
     public String getDirectoryTree(int sublevel)
     {
@@ -247,6 +237,7 @@ public class Directory
         
         return  content;
     }
+    
     private String atachTabLevel(int sublevel){
         String tabs = "";
         
@@ -256,7 +247,6 @@ public class Directory
             
         return tabs;
     }
-    
     
 
     public String get_path(){
@@ -288,4 +278,33 @@ public class Directory
         }
         return content;
     }
+    
+    public ArrayList<Integer> remove_file(String name)
+    {
+        for (File file : files) 
+        {
+            if (file.getName().equals(name)) 
+            {
+                files.remove(file);
+                return file.getSectors();
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Integer> clean_directory(){
+         ArrayList<Integer> index = new ArrayList<>();
+        
+        for(File file : files){
+            index.addAll(file.getSectors());
+        }
+        
+        for(Directory directory : directories){
+            index.addAll(directory.clean_directory());
+        }
+        
+        
+        return index;
+    }
+    
 }
