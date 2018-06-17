@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -
 -
 C:\\c.txt Content: multiple eliminacion Size: 7 Creation Date: 17-06-2018 Modification Date: 17-06-2018
@@ -445,6 +446,9 @@ C:\\d.txt Content: multiple eliminacion Size: 7 Creation Date: 17-06-2018 Modifi
 -
 -
 -
+=======
+C:\\hola.txt Content: contenido del file Size: 10 Creation Date: 17:05:59 17/06/2018 Modification Date: 17:05:59 17/06/2018
+>>>>>>> e4bc569fcc267b7f0ab1c57fd91d6ce6971a5123
 -
 -
 -
