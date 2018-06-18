@@ -322,7 +322,7 @@ public class Main {
                     break;
 
                 case "REM": // file or directory name
-                    if(action_received.contains("-n")){     //Remove n files
+                    if(action_received.contains("-n")){     //Remove n files use flag -n ex: REM -n a.txt b.txt
                         String result = general.remove_n_file(action_received.split(" ", 3)[2]);
                         if(result == ""){
                             System.out.println("Files removed succesfully");
