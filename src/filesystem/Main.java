@@ -91,11 +91,19 @@ public class Main {
                                 System.out.println("## There's already a file with the same name. Do you want to replace it? Y/N ##");
                                 System.out.println("###############################################################################");
                                 String action = scanner.nextLine();
+                                action = action.toUpperCase();
                                 if(action.equals("Y"))
                                 {
-                                    System.out.println("Caso 2 pendiente...");
-                                   //HAY QUE BORRAR EL ARCHIVO DEL FILE SYSTEM Y DEL ARCHIVO (DISCO VIRTUAL) Y CREARLO DE NUEVO
-                                   //FALTA ESO!
+                                    general.remove_file(name);
+                                    ret = general.add_file(content, name, extension, length);
+                                    if (ret == 1)
+                                    {
+                                        System.out.println("There isn't enough space for this file.");
+                                    }
+                                    else
+                                    {
+                                        System.out.println("File created successfully.");
+                                    }
                                 } 
                                 break;
 
@@ -126,13 +134,16 @@ public class Main {
                                 System.out.println("## There's already a directory with the same name. Do you want to replace it? Y/N ##");
                                 System.out.println("####################################################################################");
                                 String action = scanner.nextLine();
+                                action = action.toUpperCase();
                                 if(action.equals("Y"))
                                 {
-                                    System.out.println("Caso 1 pendiente...");
-                                    // Borramos el archivo y creamos otro nuevo 
-                                    // FALTA HACERLO
+                                    general.remove_directory(name);
+                                    general.add_directory(name);
+                                    System.out.println("Directory created successfully.");
                                 }
                                 break;
+                            case 1:
+                                System.out.println("Directory created successfully.");
                         }
                     }
                     catch(Exception e){
