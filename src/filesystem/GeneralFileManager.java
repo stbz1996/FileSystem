@@ -237,42 +237,75 @@ public class GeneralFileManager
     
     
     /*
-    This function moves a file/directory to another directory
+    This function moves a file to another directory
     Paramethers:
-        String name: It is the name of the file/directory
+        String name: It is the name of the file
         String path: It is the new path
-        String rename: It is the new name for this file/directory
+        String rename: It is the new name for this file
     Returns:
         0: Means "There's already a file with the same name."
         1: Means "There isn't enough space for this file"
-        2: Means "File/Directory not found"
-        3: Means "File moved successfully"
-        4: Means "Directory moved successfully"
-        5: Means "Path not found"
+        2: Means "File moved successfully"
+        3: Means "Path not found"
+        4: Means "File not found"
      */
-    public int move_file_or_directory(String name, String path, String rename)
+    public int move_file(String name, String path, String rename) throws IOException
     {
-        if(search_directory(name))
+        if(search_file(name))
         {
-            Directory directory = current_filemanager.getCurrent_directory().remove_directory(name);
+            String content = current_filemanager.getCurrent_directory().getFile(name).getContent();
+            int size_kb = current_filemanager.getCurrent_directory().getFile(name).getSize_kb();
+            String extension = current_filemanager.getCurrent_directory().getFile(name).getExtension();
+            remove_file(name);
             if(changeDirectory(path))
             {
-                current_filemanager.getCurrent_directory().create_directory(name, current_filemanager.getCurrent_directory());
-                //add files and directories
-                return 4;
+                return add_file(content, rename, extension, size_kb);
             }
             else
             {
-                return 5;
+               return 3;
+        } 
             }
-        }
-        else if(search_file(name))
-        {
-            return 3;
-        }
+            
         else
         {
-            return 2;
+            return 4;
+        }
+    }
+    
+        /*
+    This function moves a directory to another directory
+    Paramethers:
+        String name: It is the name of the directory
+        String path: It is the new path
+        String rename: It is the new name for this directory
+    Returns:
+        0: Means "There's already a directory with the same name."
+        1: Means "Directory moved successfully"
+        2: Means "Path not found"
+        3: Means "Directory not found"
+     */
+    public int move_directory(String name, String path, String rename) throws IOException
+    {
+        if(search_directory(name))
+        {
+            String content = current_filemanager.getCurrent_directory().getFile(name).getContent();
+            int size_kb = current_filemanager.getCurrent_directory().getFile(name).getSize_kb();
+            String extension = current_filemanager.getCurrent_directory().getFile(name).getExtension();
+            remove_file(name);
+            if(changeDirectory(path))
+            {
+                return add_file(content, rename, extension, size_kb);
+            }
+            else
+            {
+               return 2;
+        } 
+            }
+            
+        else
+        {
+            return 3;
         }
     }
     
@@ -467,7 +500,7 @@ public class GeneralFileManager
     
     
     /*
-    This function read a file from the real disk
+    This function reads a file from the real disk
     Paramethers:
         String path: It is the file path
     Returns:
@@ -493,7 +526,15 @@ public class GeneralFileManager
         return file_content;
     }
     
-    
+    /*
+    This function writes a file in the real disk
+    Paramethers:
+        String path: It is the file path in the real disk
+        String content: It is the file content
+        String name: It is the file name
+    Returns:
+        void
+     */
     public void write_file(String path, String content, String name) throws FileNotFoundException, IOException
     {
         String real_path = path + "\\" + name + ".txt";

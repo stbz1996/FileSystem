@@ -262,7 +262,8 @@ public class Main {
                                 path = action_received.split(" ")[2];
                                 new_path = action_received.split(" ")[3];
                                 ret = general.copy_file_rv(path, new_path);
-                                switch (ret) {
+                                switch (ret) 
+                                {
                                     case 0:
                                         System.out.println("There's already a file with the same name.");
                                         break;
@@ -316,9 +317,48 @@ public class Main {
                     break;
 
                 case "MOV": // file or directory name, new path, new name
-                    name = action_received.split(" ")[1];
-                    path = action_received.split(" ")[2];
-                    rename = action_received.split(" ")[3];
+                    try
+                    {
+                        name = action_received.split(" ")[1];
+                        path = action_received.split(" ")[2];
+                        rename = action_received.split(" ")[3];
+                        if(name.contains("."))
+                        {
+                            name = name.split("\\.")[0];
+                            ret = general.move_file(name, path, rename);
+                            switch (ret) 
+                                {
+                                    case 0:
+                                        System.out.println("There's already a file with the same name.");
+                                        break;
+
+                                    case 1:
+                                        System.out.println("There isn't enough space for this file.");
+                                        break;
+
+                                    case 2:
+                                        System.out.println("File moved successfully.");
+                                        break;
+
+                                    case 3:
+                                        System.out.println("Path not found");
+                                        break;
+                                        
+                                    case 4:
+                                        System.out.println("File not found");
+                                        break;
+                                }
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        System.out.println("Incorrect parameters for MOV");
+                    }
+                    
                     break;
 
                 case "REM": // file or directory name

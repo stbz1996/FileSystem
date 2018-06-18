@@ -40,19 +40,7 @@ public class Directory
         return null;
     }
     
-    
-    public void move_file(File file, Directory new_directory)
-    {
-     
-    }
-    
-    
-    public void change_file_content(String new_content)
-    {
-        
-    }
-          
-    
+
     public Directory remove_directory(String name)
     {
         Directory directory_removed;
@@ -303,8 +291,6 @@ public class Directory
         for(Directory directory : directories){
             index.addAll(directory.clean_directory());
         }
-        
-        
         return index;
     }
     

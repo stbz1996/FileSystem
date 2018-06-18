@@ -1,5 +1,5 @@
-C:\\hola.txt Content: new c Size: 10 Creation Date: 17:31:40 17/06/2018 Modification Date: 17:31:40 17/06/2018
--
+C:\\prueba3.txt Content: content Size: 12 Creation Date: 19:12:30 17/06/2018 Modification Date: 19:12:30 17/06/2018
+C:\\prueba3.txt Content: content Size: 12 Creation Date: 19:12:30 17/06/2018 Modification Date: 19:12:30 17/06/2018
 -
 -
 -
