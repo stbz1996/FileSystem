@@ -158,7 +158,15 @@ public class Directory
         return content + "\n";
     }
     
-
+    public ArrayList<File> getFiles()
+    {
+        return files;
+    }
+    
+    public ArrayList<Directory> getDirectories()
+    {
+        return directories;
+    }
     /*
     This function changed the file content and size
     Paramethers:
@@ -282,7 +290,7 @@ public class Directory
     }
     
     public ArrayList<Integer> clean_directory(){
-         ArrayList<Integer> index = new ArrayList<>();
+        ArrayList<Integer> index = new ArrayList<>();
         
         for(File file : files){
             index.addAll(file.getSectors());

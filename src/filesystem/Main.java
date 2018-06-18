@@ -351,7 +351,25 @@ public class Main {
                         }
                         else
                         {
-                            
+                            ret = general.move_directory(name, path, rename);
+                            switch (ret) 
+                                {
+                                    case 0:
+                                        System.out.println("There's already a directory with the same name.");
+                                        break;
+
+                                    case 1:
+                                        System.out.println("Directory moved successfully.");
+                                        break;
+
+                                    case 2:
+                                        System.out.println("Path not found");
+                                        break;
+                                        
+                                    case 3:
+                                        System.out.println("Directory not found");
+                                        break;
+                                }
                         }
                     }
                     catch(Exception e)

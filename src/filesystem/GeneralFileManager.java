@@ -289,13 +289,26 @@ public class GeneralFileManager
     {
         if(search_directory(name))
         {
-            String content = current_filemanager.getCurrent_directory().getFile(name).getContent();
-            int size_kb = current_filemanager.getCurrent_directory().getFile(name).getSize_kb();
-            String extension = current_filemanager.getCurrent_directory().getFile(name).getExtension();
-            remove_file(name);
+            Directory directory = current_filemanager.getCurrent_directory().getDirectory(name);
+            String current_path = getActual_path() + name;
+            System.out.println(current_path);
             if(changeDirectory(path))
             {
-                return add_file(content, rename, extension, size_kb);
+                if(add_directory(directory.getDirectory_name()) == 0)
+                {
+                    return 0;
+                }
+                System.out.println(changeDirectory(current_path));
+                for(File file : directory.getFiles())
+                {
+                    System.out.println(move_file(file.getName(), path, file.getName()));
+                }
+                /*for(Directory child : directory.getDirectories())
+                {
+                    move_directory(child.getDirectory_name(), getActual_path(), child.getDirectory_name());
+                }*/
+                remove_directory(name);
+                return 1;
             }
             else
             {

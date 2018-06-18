@@ -1,5 +1,5 @@
-C:\\prueba3.txt Content: content Size: 12 Creation Date: 19:12:30 17/06/2018 Modification Date: 19:12:30 17/06/2018
-C:\\prueba3.txt Content: content Size: 12 Creation Date: 19:12:30 17/06/2018 Modification Date: 19:12:30 17/06/2018
+C:\1\2\3\\f.tct Content: ffff Size: 7 Creation Date: 21:45:10 17/06/2018 Modification Date: 21:45:10 17/06/2018
+-
 -
 -
 -
