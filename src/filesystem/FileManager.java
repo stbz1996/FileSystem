@@ -178,4 +178,9 @@ public class FileManager
             return null; 
         }
     }
+    
+    public void add_directory(Directory directory){
+        directory.setDirectory_father(current_directory);
+        current_directory.add_directory(directory);
+    } 
 }

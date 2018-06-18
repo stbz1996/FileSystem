@@ -94,6 +94,10 @@ public class Directory
         this.current_file = current_file;
     }
 
+    public void setDirectory_father(Directory directory_father) {
+        this.directory_father = directory_father;
+    }
+
 
     public String getDirectory_name() 
     {
@@ -301,5 +305,9 @@ public class Directory
         }
         return index;
     }
+    
+    public void add_directory(Directory directory){
+        directories.add(directory);
+    } 
     
 }

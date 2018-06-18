@@ -105,6 +105,19 @@ public class GeneralFileManager
             return 1;
         }
     }
+    
+    public int add_directory(Directory directory)
+    {
+        if(search_directory(directory.getDirectory_name()))
+        {
+            return 0;
+        }
+        else
+        {
+            current_filemanager.add_directory(directory);
+            return 1;
+        }
+    }
      
     
      /*
@@ -256,7 +269,7 @@ public class GeneralFileManager
             String content = current_filemanager.getCurrent_directory().getFile(name).getContent();
             int size_kb = current_filemanager.getCurrent_directory().getFile(name).getSize_kb();
             String extension = current_filemanager.getCurrent_directory().getFile(name).getExtension();
-            remove_file(name);
+            System.out.println("REMOVE--- "+ remove_file(name));
             if(changeDirectory(path))
             {
                 return add_file(content, rename, extension, size_kb);
@@ -264,8 +277,8 @@ public class GeneralFileManager
             else
             {
                return 3;
-        } 
-            }
+            } 
+        }
             
         else
         {
@@ -289,25 +302,23 @@ public class GeneralFileManager
     {
         if(search_directory(name))
         {
-            Directory directory = current_filemanager.getCurrent_directory().getDirectory(name);
-            String current_path = getActual_path() + name;
+            Directory directory = current_filemanager.getCurrent_directory().remove_directory(name);
+            directory.setDirectory_name(rename);
+            String current_path = getActual_path() +"\\\\" + name;
             System.out.println(current_path);
             if(changeDirectory(path))
             {
-                if(add_directory(directory.getDirectory_name()) == 0)
+                if(add_directory(directory) == 0)
                 {
                     return 0;
                 }
-                System.out.println(changeDirectory(current_path));
+                
+                recursive_file_mov(directory);
+                System.out.println(changeDirectory(directory.get_path().replace("\\", "\\\\")));
                 for(File file : directory.getFiles())
                 {
-                    System.out.println(move_file(file.getName(), path, file.getName()));
+                    System.out.println(move_file(file.getName(), directory.get_path().replace("\\", "\\\\"), file.getName()));
                 }
-                /*for(Directory child : directory.getDirectories())
-                {
-                    move_directory(child.getDirectory_name(), getActual_path(), child.getDirectory_name());
-                }*/
-                remove_directory(name);
                 return 1;
             }
             else
@@ -319,6 +330,18 @@ public class GeneralFileManager
         else
         {
             return 3;
+        }
+    }
+    
+    private void recursive_file_mov(Directory directory) throws IOException{
+        
+        for(Directory dir : directory.getDirectories()){
+            if(!dir.getDirectories().isEmpty()){
+                recursive_file_mov(dir);
+            }
+            for(File file : dir.getFiles()){
+                    System.out.println(move_file(file.getName(),  dir.get_path().replace("\\", "\\\\"), file.getName()));
+                }
         }
     }
     
